@@ -1,11 +1,10 @@
-
 # DriverTest
 
 Ứng dụng Android hỗ trợ ôn tập và thi thử lý thuyết bằng lái xe ô tô.
 
 ## 📱 Giới thiệu
 
-**DriverTest** là ứng dụng Android được xây dựng nhằm hỗ trợ người học ôn luyện kiến thức lý thuyết và thực hành các bài thi thử bằng lái xe ô tô.
+**DriverTest** là ứng dụng Android được xây dựng nhằm hỗ trợ người học ôn luyện kiến thức lý thuyết và thực hiện các bài thi thử bằng lái xe ô tô.
 
 Ứng dụng cung cấp hệ thống câu hỏi, đề thi ngẫu nhiên, chấm điểm và hỗ trợ người dùng xem lại những câu hỏi đã làm sai.
 
@@ -80,39 +79,10 @@
 │   Room   │ │ Retrofit │
 │ Database │ │   API    │
 └──────────┘ └──────────┘
-```
-
-## 🗄 Cơ sở dữ liệu
-
-Ứng dụng sử dụng **Room Database** để lưu trữ dữ liệu cục bộ.
-
-Các nhóm dữ liệu chính:
-
-* `LicenseType` – Thông tin hạng bằng
-* `Question` – Câu hỏi
-* `QuestionType` – Loại câu hỏi
-* `Answer` – Đáp án
-* `Image` – Hình ảnh câu hỏi
-* `Exam` – Thông tin bài thi
-* `ExamDetail` – Chi tiết câu hỏi trong bài thi
-* `LicenseQuestionRule` – Quy tắc phân bổ câu hỏi theo hạng bằng
 
 ## 🌐 API
 
 Ứng dụng sử dụng REST API để lấy dữ liệu câu hỏi và loại câu hỏi.
-
-### Driver Test API
-
-```text
-https://thantrieu.com/resources/braniumapis/driver_test.json
-```
-
-### Test Type API
-
-```text
-https://thantrieu.com/resources/braniumapis/test_type.json
-```
-
 Dữ liệu API được chuyển đổi sang các model của ứng dụng và lưu trữ vào Room Database để sử dụng trong ứng dụng.
 
 ## 🚗 Hạng bằng
@@ -132,92 +102,12 @@ Dữ liệu API được chuyển đổi sang các model của ứng dụng và 
 * D2E
 * DE
 
-## 📂 Cấu trúc dự kiến
-
-```text
-app/
-└── src/
-    └── main/
-        ├── java/com/example/drivertest/
-        │   ├── data/
-        │   │   ├── local/
-        │   │   ├── remote/
-        │   │   └── repository/
-        │   │
-        │   ├── di/
-        │   │
-        │   ├── domain/
-        │   │
-        │   └── presentation/
-        │       ├── home/
-        │       ├── exam/
-        │       ├── review/
-        │       ├── result/
-        │       └── history/
-        │
-        └── res/
-            ├── drawable/
-            ├── layout/
-            ├── navigation/
-            ├── values/
-            └── xml/
-```
-
 ## ⚙️ Yêu cầu môi trường
-
 * Android Studio
 * Kotlin
 * Gradle
 * Android SDK
 * Minimum SDK: **29**
 * Compile SDK: **37**
-
-## 🚀 Trạng thái phát triển
-
-### Đã hoàn thành
-
-* [x] Khởi tạo project
-* [x] Cấu hình Android SDK
-* [x] Cấu hình Splash Screen
-* [x] Tạo README
-
-### Đang thực hiện
-
-* [ ] Cấu hình các thư viện chính
-* [ ] Cấu hình Hilt
-* [ ] Cấu hình Room
-* [ ] Cấu hình Retrofit
-* [ ] Xây dựng Repository
-* [ ] Xây dựng kiến trúc MVVM
-* [ ] Xây dựng giao diện
-* [ ] Đồng bộ dữ liệu từ API
-* [ ] Xây dựng chức năng ôn tập
-* [ ] Xây dựng chức năng thi thử
-* [ ] Xây dựng chức năng xem kết quả
-* [ ] Xây dựng chức năng lịch sử
-* [ ] Xây dựng chức năng câu hỏi sai
-* [ ] Viết Unit Test
-* [ ] Viết UI Test
-
-## 🔀 Git Workflow
-
-Các thay đổi lớn của project được quản lý bằng Git.
-
-Ví dụ commit:
-
-```text
-chore: initialize project
-chore: configure splash screen
-chore: add project dependencies
-feat: implement question feature
-feat: implement exam feature
-fix: fix exam scoring
-refactor: improve repository architecture
-test: add unit tests
-```
-
-## 👨‍💻 Tác giả
-
-**Hải Hoàng Đức**
 
 Project được thực hiện với mục đích học tập và xây dựng đồ án ứng dụng Android.
