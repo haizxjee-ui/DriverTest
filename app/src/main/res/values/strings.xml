@@ -1,3 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Thi GPLX ô tô</string>
+    <string name="error_message_binding" tools:ignore="TypographyEllipsis">Đang kiểm tra và tải dữ liệu...</string>
+    <string name="error_title">Không thể khởi tạo ứng dụng</string>
+    <string name="error_message">Không thể tải dữ liệu. Vui lòng kiểm tra kết nối Internet và thử lại.</string>
+    <string name="btn_error">Thử lại</string>
+    <string name="icon_description">Lỗi khởi tạo ứng dụng</string>
+    <string name="internet_check_error">Không có kết nối Internet.</string>
 </resources>

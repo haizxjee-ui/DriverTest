@@ -1,7 +1,7 @@
 package com.example.drivertest.data.remote
 
 import com.example.drivertest.data.remote.dto.QuestionResponseDto
-import com.example.drivertest.data.remote.dto.TestTypeResponseDto
+import com.example.drivertest.data.remote.dto.QuestionTypeResponseDto
 import retrofit2.http.GET
 
 interface DriverApiService {
@@ -10,5 +10,5 @@ interface DriverApiService {
     suspend fun getQuestions(): QuestionResponseDto
 
     @GET("resources/braniumapis/test_type.json")
-    suspend fun getTestTypes(): TestTypeResponseDto
+    suspend fun getQuestionTypes(): QuestionTypeResponseDto
 }

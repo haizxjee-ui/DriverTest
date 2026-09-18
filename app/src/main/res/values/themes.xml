@@ -2,7 +2,7 @@
 
     <!-- Theme dùng cho Splash Screen -->
     <style name="Theme.DriverTest.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenBackground">#3153A7</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
         <item name="postSplashScreenTheme">@style/Theme.DriverTest</item>
     </style>
