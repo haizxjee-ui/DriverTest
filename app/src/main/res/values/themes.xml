@@ -9,6 +9,7 @@
 
     <!-- Theme chính của ứng dụng -->
     <style name="Base.Theme.DriverTest" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
     </style>
 
     <style name="Theme.DriverTest" parent="Base.Theme.DriverTest" />

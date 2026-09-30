@@ -6,4 +6,6 @@
     <string name="btn_error">Thử lại</string>
     <string name="icon_description">Lỗi khởi tạo ứng dụng</string>
     <string name="internet_check_error">Không có kết nối Internet.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
