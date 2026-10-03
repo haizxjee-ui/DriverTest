@@ -148,6 +148,19 @@ class StartupFragment : Fragment() {
 
                             binding.errorCard.visibility = View.GONE
                         }
+
+                        StartupState.NeedLicenseSelection -> {
+                            findNavController().navigate(
+                                R.id.action_startupFragment_to_licenseSelectionFragment,
+                                null,
+                                navOptions {
+                                    popUpTo(R.id.startupFragment) {
+                                        inclusive = true
+                                    }
+                                }
+                            )
+                            binding.errorCard.visibility = View.GONE
+                        }
                     }
                 }
             }

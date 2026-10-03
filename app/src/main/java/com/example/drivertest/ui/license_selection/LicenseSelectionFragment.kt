@@ -71,14 +71,17 @@ class LicenseSelectionFragment :
                     R.id.action_licenseSelectionFragment_to_homeFragment,
                     null,
                     navOptions {
+                        launchSingleTop = true
+
+                        popUpTo(R.id.licenseSelectionFragment) {
+                            inclusive = true
+                        }
+
                         anim {
                             enter = R.anim.fade_in
                             exit = R.anim.fade_out
                             popEnter = R.anim.fade_in
                             popExit = R.anim.fade_out
-                        }
-                        popUpTo(R.id.licenseSelectionFragment) {
-                            inclusive = true
                         }
                     }
                 )

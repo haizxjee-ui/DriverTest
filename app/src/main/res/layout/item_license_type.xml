@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_item"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:ignore="UselessParent">
 
         <!-- Hàng 1: Icon, Tên hạng, Radio button -->
         <RelativeLayout
@@ -27,7 +28,8 @@
                 android:background="@drawable/bg_stat_box"
                 android:padding="10dp"
                 android:src="@drawable/ic_car"
-                app:tint="#1D4ED8" />
+                app:tint="#1D4ED8"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -43,7 +45,7 @@
                     android:id="@+id/tvLicenseName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hạng B1"
+                    android:text="@string/item_license_type_name"
                     android:textColor="#0F172A"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -56,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:checked="false" />
+                android:checked="false"
+                tools:ignore="VisualLintSystemUi" />
 
         </RelativeLayout>
 
@@ -67,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:lineSpacingExtra="2dp"
-            android:text="Ô tô số tự động chở người đến 9 chỗ, không kinh doanh vận tải"
+            android:text="@string/item_license_type_description"
             android:textColor="#64748B"
             android:textSize="13sp" />
 
@@ -83,7 +86,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="3"
+            tools:ignore="DisableBaselineAlignment">
 
             <!-- Ô 1: Bộ đề -->
             <LinearLayout
@@ -99,7 +103,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="≡ Bộ đề"
+                    android:text="@string/item_title_total_question"
                     android:textColor="#64748B"
                     android:textSize="11sp" />
 
@@ -108,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="30 Câu"
+                    android:text="@string/item_total_question"
                     android:textColor="#0F172A"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -129,7 +133,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🕒 Thời gian"
+                    android:text="@string/item_title_exam_time"
                     android:textColor="#64748B"
                     android:textSize="11sp" />
 
@@ -138,7 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="20 Phút"
+                    android:text="@string/item_exam_time"
                     android:textColor="#0F172A"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -159,16 +163,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="✔ Yêu cầu đạt"
+                    android:text="@string/item_title_passing_score"
                     android:textColor="#059669"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    tools:ignore="TextContrastCheck" />
 
                 <TextView
                     android:id="@+id/tvPassingScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="27/30"
+                    android:text="@string/item_passing_score"
                     android:textColor="#0F172A"
                     android:textSize="13sp"
                     android:textStyle="bold" />

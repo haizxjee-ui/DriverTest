@@ -1,5 +1,6 @@
 package com.example.drivertest.ui.startup
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drivertest.data.DataStoreManager
@@ -42,12 +43,24 @@ class StartupViewModel @Inject constructor(
             val isInitialized =
                 dataStoreManager.isDataInitialized.first()
 
+            val selectedLicenseID =
+                dataStoreManager.selectedLicenseTypeID.first()
+
+            // 3. Dữ liệu API đã có
             if (isInitialized) {
-                _state.value = StartupState.Success
+
+                if (selectedLicenseID != null) {
+                    // Đã có dữ liệu + đã chọn hạng
+                    _state.value = StartupState.Success
+                } else {
+                    // Đã có dữ liệu nhưng chưa chọn hạng
+                    _state.value = StartupState.NeedLicenseSelection
+                }
+
                 return
             }
 
-            // 3. Chưa có dữ liệu API → kiểm tra mạng
+            // 4. Chưa có dữ liệu API → kiểm tra mạng
             if (!connectivityChecker.isNetworkAvailable()) {
                 _state.value = StartupState.Error(
                     "Không có kết nối Internet."
@@ -55,11 +68,18 @@ class StartupViewModel @Inject constructor(
                 return
             }
 
-            // 4. Có mạng → tải dữ liệu từ API
+            // 5. Có mạng → tải dữ liệu từ API
             questionRepository.initializeRemoteData()
 
-            // 5. Tải thành công
-            _state.value = StartupState.Success
+            // 6. Dữ liệu đã tải xong → kiểm tra lại hạng bằng
+            val newSelectedLicenseID =
+                dataStoreManager.selectedLicenseTypeID.first()
+
+            if (newSelectedLicenseID != null) {
+                _state.value = StartupState.Success
+            } else {
+                _state.value = StartupState.NeedLicenseSelection
+            }
 
         } catch (e: IOException) {
 

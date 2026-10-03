@@ -8,4 +8,22 @@
     <string name="internet_check_error">Không có kết nối Internet.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_license_type_name">Hạng B1</string>
+    <string name="item_license_type_description">Ô tô số tự động chở người đến 9 chỗ, không kinh doanh vận tải</string>
+    <string name="item_title_total_question">≡ Bộ đề</string>
+    <string name="item_total_question">30 Câu</string>
+    <string name="item_title_exam_time">🕒 Thời gian</string>
+    <string name="item_exam_time">20 Phút</string>
+    <string name="item_title_passing_score">✔ Yêu cầu đạt</string>
+    <string name="item_passing_score">27/30</string>
+    <string name="bottom_menu_home">Trang chủ</string>
+    <string name="bottom_menu_practice">Luyện tập</string>
+    <string name="bottom_menu_exam">Đề thi</string>
+    <string name="license_selec_top_bar_title">Ôn Thi GPLX</string>
+    <string name="license_selec_button">Tiếp tục vào ôn luyện</string>
+    <string name="license_selec_info_foot_title">Lưu ý quy chế sát hạch:</string>
+    <string name="license_selec_info_foot">Tất cả các hạng bằng đều có bộ câu hỏi điểm liệt. Làm sai 1 câu điểm liệt sẽ bị đánh trượt trực tiếp, dù đạt đủ điểm tổng.</string>
+    <string name="license_selec_sub_badge">Hệ Thống 600 Câu Hỏi Mới Nhất</string>
+    <string name="license_selec_title">Chọn Hạng Bằng Lái</string>
+    <string name="license_selec_sub_descrip">Chọn loại giấy phép lái xe bạn muốn ôn luyện và thi thử</string>
 </resources>

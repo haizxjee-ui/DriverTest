@@ -14,22 +14,15 @@
         android:layout_height="56dp"
         android:paddingHorizontal="16dp">
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="#00288E" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Ôn Thi GPLX"
+            android:text="@string/license_selec_top_bar_title"
             android:textColor="#00288E"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap,VisualLintSystemUi" />
 
         <ImageView
             android:id="@+id/btnSound"
@@ -38,9 +31,15 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_license"
-            app:tint="#1E293B" />
+            app:tint="#1E293B"
+            tools:ignore="ContentDescription" />
 
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/layoutHeader"
+        android:background="#E5E7EB" />
 
     <!-- Bottom Button -->
     <androidx.appcompat.widget.AppCompatButton
@@ -54,11 +53,12 @@
         android:drawableTint="@android:color/white"
         android:drawablePadding="8dp"
         android:paddingHorizontal="24dp"
-        android:text="Tiếp tục vào ôn luyện"
+        android:text="@string/license_selec_button"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="VisualLintButtonSize" />
 
     <!-- Information Card Footer -->
     <LinearLayout
@@ -76,7 +76,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_info"
-            app:tint="#1D4ED8" />
+            app:tint="#1D4ED8"
+            tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lưu ý quy chế sát hạch:"
+                android:text="@string/license_selec_info_foot_title"
                 android:textColor="#0F172A"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -96,9 +97,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Tất cả các hạng bằng đều có bộ câu hỏi điểm liệt. Làm sai 1 câu điểm liệt sẽ bị đánh trượt trực tiếp, dù đạt đủ điểm tổng."
+                android:text="@string/license_selec_info_foot"
                 android:textColor="#64748B"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:ignore="TextContrastCheck,VisualLintLongText" />
 
         </LinearLayout>
 
@@ -127,13 +129,14 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_verified_user"
-                app:tint="#1D4ED8" />
+                app:tint="#1D4ED8"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="Hệ Thống 600 Câu Hỏi Mới Nhất"
+                android:text="@string/license_selec_sub_badge"
                 android:textColor="#1D4ED8"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -145,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Chọn Hạng Bằng Lái"
+            android:text="@string/license_selec_title"
             android:textColor="#0F172A"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -156,7 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="16dp"
-            android:text="Chọn loại giấy phép lái xe bạn muốn ôn luyện và thi thử"
+            android:text="@string/license_selec_sub_descrip"
             android:textColor="#64748B"
             android:textSize="14sp" />
 

@@ -6,5 +6,7 @@ sealed interface StartupState {
 
     data object Success : StartupState
 
+    data object NeedLicenseSelection : StartupState
+
     data class Error(val message: String) : StartupState
 }
