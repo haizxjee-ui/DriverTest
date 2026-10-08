@@ -41,6 +41,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 R.id.action_homeFragment_to_licenseSelectionFragment
             )
         }
+
+        binding.cardPractice.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_practiceFragment
+            )
+        }
     }
 
     private fun observeCurrentLicense() {

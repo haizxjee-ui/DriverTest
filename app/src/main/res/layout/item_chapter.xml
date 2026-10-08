@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:strokeColor="#E3E8EF"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Phần Đầu: Icon, Tiêu đề chương & Badge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Background chứa Icon -->
+            <FrameLayout
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_rounded_icon">
+
+                <ImageView
+                    android:id="@+id/imgIcon"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_lesson"
+                    app:tint="#0D47A1" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Tag Chương -->
+                    <TextView
+                        android:id="@+id/tvChapterTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_tag_chapter"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="3dp"
+                        android:text="Chương 4"
+                        android:textColor="#1E40AF"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <!-- Tag Cảnh báo (điểm liệt) -->
+                    <TextView
+                        android:id="@+id/tvWarningTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:background="@drawable/bg_tag_warning"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="3dp"
+                        android:text="11 câu điểm liệt"
+                        android:textColor="#DC2626"
+                        android:textSize="12sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <!-- Tên Chương -->
+                <TextView
+                    android:id="@+id/tvChapterTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Kỹ thuật lái xe ô tô"
+                    android:textColor="#0F172A"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Phần Tiến độ -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/tvProgressCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="Tiến độ: 35/56 câu"
+                android:textColor="#475569"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvProgressPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="62%"
+                android:textColor="#1E3A8A"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <!-- Thanh ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="8dp"
+            android:max="100"
+            android:progress="62"
+            android:progressDrawable="@drawable/custom_progress_bar" />
+
+        <!-- Đường kẻ phân cách -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="#F1F5F9" />
+
+        <!-- Phần Chân card: Số câu hỏi & Nút học tiếp -->
+        <!-- Phần Chân card -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:id="@+id/tvTotalQuestions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="56 câu hỏi"
+                android:textColor="#64748B"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnReset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="12dp"
+                    android:text="Làm lại"
+                    android:textColor="#DC2626"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/btnContinue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="8dp"
+                    android:text="Bắt đầu →"
+                    android:textColor="#1E3A8A"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

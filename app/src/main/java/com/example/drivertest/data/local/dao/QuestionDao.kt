@@ -24,4 +24,49 @@ interface QuestionDao {
 
     @Query("SELECT COUNT(*) FROM questions")
     suspend fun getQuestionCount(): Int
+
+    @Query("""
+    SELECT COUNT(*)
+    FROM questions
+    WHERE questionTypeID = :questionTypeID
+""")
+    fun getQuestionCountByType(
+        questionTypeID: Int
+    ): Flow<Int>
+
+    @Query("""
+    SELECT COUNT(*)
+    FROM questions
+    WHERE questionTypeID = :questionTypeID
+    AND isCritical = 1
+""")
+    fun getCriticalQuestionCountByType(
+        questionTypeID: Int
+    ): Flow<Int>
+
+    @Query("""
+    SELECT COUNT(*)
+    FROM questions
+    WHERE isCritical = 1
+""")
+    fun getTotalCriticalQuestionCount(): Flow<Int>
+
+    @Query("""
+    SELECT *
+    FROM questions
+    WHERE isCritical = 1
+    ORDER BY questionID
+""")
+    fun getCriticalQuestions(): Flow<List<QuestionEntity>>
+
+    @Query("""
+    SELECT *
+    FROM questions
+    WHERE questionTypeID = :questionTypeID
+    ORDER BY questionID
+""")
+    fun getQuestionsByType(
+        questionTypeID: Int
+    ): Flow<List<QuestionEntity>>
+
 }

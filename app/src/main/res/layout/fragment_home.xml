@@ -162,7 +162,7 @@
                 </com.google.android.material.card.MaterialCardView>
                 <!-- Thẻ 2: 600 câu lý thuyết -->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardTheoryQuestions"
+                    android:id="@+id/cardPractice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"

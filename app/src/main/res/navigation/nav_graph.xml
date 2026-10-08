@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_homeFragment_to_licenseSelectionFragment"
             app:destination="@id/licenseSelectionFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_practiceFragment"
+            app:destination="@id/practiceFragment" />
 
     </fragment>
 
@@ -42,6 +45,33 @@
         <action
             android:id="@+id/action_licenseSelectionFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/practiceFragment"
+        android:name="com.example.drivertest.ui.practice.practice_list_chapter.PracticeFragment"
+        android:label="PracticeFragment"
+        tools:layout="@layout/fragment_practice">
+
+        <action
+            android:id="@+id/action_practiceFragment_to_practiceQuestionFragment"
+            app:destination="@id/practiceQuestionFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/practiceQuestionFragment"
+        android:name="com.example.drivertest.ui.practice.practice_question.PracticeQuestionFragment"
+        android:label="PracticeQuestionFragment"
+        tools:layout="@layout/fragment_practice_question">
+
+        <argument
+            android:name="chapterNumber"
+            app:argType="integer" />
+
+        <argument
+            android:name="questionTypeID"
+            app:argType="integer" />
 
     </fragment>
 

@@ -4,12 +4,17 @@ import android.util.Log
 import androidx.room.withTransaction
 import com.example.drivertest.data.DataStoreManager
 import com.example.drivertest.data.local.AppDatabase
+import com.example.drivertest.data.local.entity.AnswerEntity
+import com.example.drivertest.data.local.entity.ImageEntity
+import com.example.drivertest.data.local.entity.QuestionEntity
 import com.example.drivertest.data.remote.DriverApiService
 import com.example.drivertest.data.toAnswerEntities
 import com.example.drivertest.data.toEntity
 import com.example.drivertest.data.toImageEntities
 import com.example.drivertest.data.toQuestionEntity
+import com.example.drivertest.data.model.PracticeQuestion
 import com.example.drivertest.utils.AppConstants
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
@@ -132,4 +137,71 @@ class QuestionRepository @Inject constructor(
             "Đã lưu ${questionEntities.size} câu hỏi vào Room"
         )
     }
+
+    fun getAllQuestionTypes() =
+        database.questionTypeDao().getAllQuestionTypes()
+
+    fun getCriticalQuestionCount(): Flow<Int> {
+        return database.questionDao().getTotalCriticalQuestionCount()
+    }
+
+    fun getCriticalQuestions(): Flow<List<QuestionEntity>> {
+        return database
+            .questionDao()
+            .getCriticalQuestions()
+    }
+
+    fun getQuestionsByType(
+        questionTypeID: Int
+    ): Flow<List<QuestionEntity>> {
+        return database
+            .questionDao()
+            .getQuestionsByType(questionTypeID)
+    }
+
+    suspend fun getAnswersByQuestionID(
+        questionID: Int
+    ): List<AnswerEntity> {
+
+        return database
+            .answerDao()
+            .getAnswersByQuestionID(questionID)
+    }
+
+    suspend fun getImagesByQuestionID(
+        questionID: Int
+    ): List<ImageEntity> {
+
+        return database
+            .imageDao()
+            .getImagesByQuestionID(questionID)
+    }
+
+    suspend fun getPracticeQuestion(
+        questionID: Int
+    ): PracticeQuestion? {
+
+        val question =
+            database
+                .questionDao()
+                .getQuestionByID(questionID)
+                ?: return null
+
+        val answers =
+            database
+                .answerDao()
+                .getAnswersByQuestionID(questionID)
+
+        val images =
+            database
+                .imageDao()
+                .getImagesByQuestionID(questionID)
+
+        return PracticeQuestion(
+            question = question,
+            answers = answers,
+            images = images
+        )
+    }
+
 }

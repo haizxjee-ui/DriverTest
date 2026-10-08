@@ -12,8 +12,15 @@ interface AnswerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAnswers(answers: List<AnswerEntity>): List<Long>
 
-    @Query("SELECT * FROM answers WHERE questionID = :questionID")
-    suspend fun getAnswersByQuestionID(questionID: Int): List<AnswerEntity>
+    @Query("""
+    SELECT *
+    FROM answers
+    WHERE questionID = :questionID
+    ORDER BY answerID
+""")
+    suspend fun getAnswersByQuestionID(
+        questionID: Int
+    ): List<AnswerEntity>
 
     @Query("SELECT * FROM answers WHERE answerID = :answerID")
     suspend fun getAnswerByID(answerID: Int): AnswerEntity?

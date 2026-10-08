@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drivertest.data.DataStoreManager
 import com.example.drivertest.data.local.dao.LicenseTypeDao
+import com.example.drivertest.data.repository.LicenseTypeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,14 +14,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LicenseSelectionViewModel @Inject constructor(
-    private val licenseTypeDao: LicenseTypeDao,
-    private val dataStoreManager: DataStoreManager
+    private val dataStoreManager: DataStoreManager,
+    private val licenseTypeRepository: LicenseTypeRepository
 ) : ViewModel() {
 
     private val _selectedLicenseId = MutableStateFlow<Int?>(null)
     val selectedLicenseId: StateFlow<Int?> = _selectedLicenseId
 
-    val licenseTypes = licenseTypeDao.getAllLicenseTypes()
+    val licenseTypes = licenseTypeRepository.getLicenseTypes()
 
     init {
         viewModelScope.launch {

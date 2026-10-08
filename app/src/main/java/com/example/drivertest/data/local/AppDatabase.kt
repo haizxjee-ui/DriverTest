@@ -8,16 +8,20 @@ import com.example.drivertest.data.local.dao.ExamDetailDao
 import com.example.drivertest.data.local.dao.ImageDao
 import com.example.drivertest.data.local.dao.LicenseQuestionRuleDao
 import com.example.drivertest.data.local.dao.LicenseTypeDao
+import com.example.drivertest.data.local.dao.PracticeProgressDao
 import com.example.drivertest.data.local.dao.QuestionDao
 import com.example.drivertest.data.local.dao.QuestionTypeDao
+import com.example.drivertest.data.local.dao.UserQuestionProgressDao
 import com.example.drivertest.data.local.entity.AnswerEntity
 import com.example.drivertest.data.local.entity.ExamDetailEntity
 import com.example.drivertest.data.local.entity.ExamEntity
 import com.example.drivertest.data.local.entity.ImageEntity
 import com.example.drivertest.data.local.entity.LicenseQuestionRuleEntity
 import com.example.drivertest.data.local.entity.LicenseTypeEntity
+import PracticeProgressEntity
 import com.example.drivertest.data.local.entity.QuestionEntity
 import com.example.drivertest.data.local.entity.QuestionTypeEntity
+import UserQuestionProgressEntity
 
 @Database(
     entities = [
@@ -28,7 +32,9 @@ import com.example.drivertest.data.local.entity.QuestionTypeEntity
         LicenseTypeEntity::class,
         LicenseQuestionRuleEntity::class,
         ExamEntity::class,
-        ExamDetailEntity::class
+        ExamDetailEntity::class,
+        UserQuestionProgressEntity::class,
+        PracticeProgressEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -43,4 +49,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun licenseQuestionRuleDao(): LicenseQuestionRuleDao
     abstract fun examDao(): ExamDao
     abstract fun examDetailDao(): ExamDetailDao
+
+    abstract fun userQuestionProgressDao(): UserQuestionProgressDao
+    abstract fun practiceProgressDao(): PracticeProgressDao
 }
