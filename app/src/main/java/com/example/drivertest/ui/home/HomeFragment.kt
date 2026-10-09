@@ -32,6 +32,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         setupClickListeners()
         observeCurrentLicense()
+        observeWrongQuestionCount()
     }
 
     private fun setupClickListeners() {
@@ -45,6 +46,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.cardPractice.setOnClickListener {
             findNavController().navigate(
                 R.id.action_homeFragment_to_practiceFragment
+            )
+        }
+
+        binding.cardWrongQuestions.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_wrongQuestionFragment
             )
         }
     }
@@ -71,5 +78,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun observeWrongQuestionCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.wrongQuestionCount.collect { count ->
+                    binding.tvWrongQuestionCount.text = "$count câu"
+                }
+            }
+        }
     }
 }

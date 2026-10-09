@@ -72,7 +72,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layoutHeader"
-        android:layout_above="@id/bottomNavigation"
         android:fillViewport="true"
         android:scrollbars="none">
 
@@ -149,14 +148,6 @@
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="Bắt đầu >"
-                                android:textColor="#1D4ED8"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
                         </RelativeLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -218,14 +209,6 @@
                                 android:textColor="#64748B"
                                 android:textSize="12sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="Học tiếp >"
-                                android:textColor="#1D4ED8"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
                         </RelativeLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -294,15 +277,6 @@
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="Thay đổi >"
-                                android:textColor="#1D4ED8"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -362,24 +336,17 @@
                             android:layout_marginTop="28dp">
 
                             <TextView
+                                android:id="@+id/tvWrongQuestionCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="#FEE2E2"
                                 android:paddingHorizontal="6dp"
                                 android:paddingVertical="2dp"
-                                android:text="18 câu"
+                                android:text="0 câu"
                                 android:textColor="#DC2626"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="Xem lại >"
-                                android:textColor="#1D4ED8"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
                         </RelativeLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -431,14 +398,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <!-- Thanh Navigation ở đáy màn hình -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_nav_background"
-        app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

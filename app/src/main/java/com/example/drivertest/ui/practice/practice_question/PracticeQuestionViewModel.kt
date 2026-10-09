@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drivertest.data.repository.PracticeRepository
 import com.example.drivertest.data.repository.QuestionRepository
+import com.example.drivertest.data.repository.WrongQuestionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PracticeQuestionViewModel @Inject constructor(
     private val questionRepository: QuestionRepository,
-    private val practiceRepository: PracticeRepository
+    private val practiceRepository: PracticeRepository,
+    private val wrongQuestionRepository: WrongQuestionRepository
 ) : ViewModel() {
 
     private val _question =
@@ -208,10 +210,7 @@ class PracticeQuestionViewModel @Inject constructor(
         return questions.size
     }
 
-    fun selectAnswer(
-        position: Int
-    ) {
-
+    fun selectAnswer(position: Int) {
         viewModelScope.launch {
 
             val currentQuestion =
@@ -226,8 +225,7 @@ class PracticeQuestionViewModel @Inject constructor(
                 return@launch
             }
 
-            val selectedAnswer =
-                answers[position]
+            val selectedAnswer = answers[position]
 
             val answerLabels = listOf(
                 "A",
@@ -237,19 +235,23 @@ class PracticeQuestionViewModel @Inject constructor(
                 "E"
             )
 
-            val progress =
-                UserQuestionProgressEntity(
-                    chapterNumber = currentChapterNumber,
-                    questionID = currentQuestion.questionID,
-                    selectedAnswer = answerLabels[position],
-                    isAnswered = true,
-                    isCorrect = selectedAnswer.isCorrect
-                )
+            val progress = UserQuestionProgressEntity(
+                chapterNumber = currentChapterNumber,
+                questionID = currentQuestion.questionID,
+                selectedAnswer = answerLabels[position],
+                isAnswered = true,
+                isCorrect = selectedAnswer.isCorrect
+            )
 
-            practiceRepository
-                .saveQuestionProgress(
-                    progress
+            // Lưu tiến trình trả lời như trước
+            practiceRepository.saveQuestionProgress(progress)
+
+            // Nếu trả lời sai, thêm câu hỏi vào danh sách câu sai
+            if (!selectedAnswer.isCorrect) {
+                wrongQuestionRepository.addWrongQuestion(
+                    currentQuestion.questionID
                 )
+            }
         }
     }
 }
