@@ -21,4 +21,5 @@ interface LicenseTypeDao {
 
     @Query("DELETE FROM license_types")
     suspend fun deleteAllLicenseTypes()
+
 }

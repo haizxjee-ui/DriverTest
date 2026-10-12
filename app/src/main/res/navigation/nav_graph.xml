@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_homeFragment_to_wrongQuestionFragment"
             app:destination="@id/wrongQuestionFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mockExamFragment"
+            app:destination="@id/mockExamFragment" />
 
     </fragment>
 
@@ -82,5 +85,19 @@
         android:name="com.example.drivertest.ui.practice.practice_wrong_question.WrongQuestionFragment"
         android:label="fragment_wrong_question"
         tools:layout="@layout/fragment_wrong_question" />
+    <fragment
+        android:id="@+id/mockExamFragment"
+        android:name="com.example.drivertest.ui.mock_exam.MockExamFragment"
+        android:label="fragment_mock_exam"
+        tools:layout="@layout/fragment_mock_exam" >
+        <action
+            android:id="@+id/action_mockExamFragment_to_mockExamTakingFragment"
+            app:destination="@id/mockExamTakingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mockExamTakingFragment"
+        android:name="com.example.drivertest.ui.mock_exam.MockExamTakingFragment"
+        android:label="MockExamTakingFragment"
+        tools:layout="@layout/fragment_mock_exam_taking"/>
 
 </navigation>

@@ -91,7 +91,7 @@
 
                 <!-- Thẻ 1: Thi thử bộ đề -->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardMockTest"
+                    android:id="@+id/cardMockExam"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
@@ -143,7 +143,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="18 Đề thi"
+                                android:text="20 Đề thi"
                                 android:textColor="#10B981"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />

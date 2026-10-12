@@ -7,6 +7,7 @@ import com.example.drivertest.data.local.AppDatabase
 import com.example.drivertest.data.local.entity.AnswerEntity
 import com.example.drivertest.data.local.entity.ImageEntity
 import com.example.drivertest.data.local.entity.QuestionEntity
+import com.example.drivertest.data.model.MockExam
 import com.example.drivertest.data.remote.DriverApiService
 import com.example.drivertest.data.toAnswerEntities
 import com.example.drivertest.data.toEntity
@@ -201,6 +202,69 @@ class QuestionRepository @Inject constructor(
             question = question,
             answers = answers,
             images = images
+        )
+    }
+
+    suspend fun generateMockExam(licenseTypeID: Int): MockExam {
+        val licenseType = database.licenseTypeDao()
+            .getLicenseTypeByID(licenseTypeID)
+            ?: throw IllegalStateException("Không tìm thấy hạng giấy phép")
+
+        val rules = database.licenseQuestionRuleDao()
+            .getRulesByLicenseTypeID(licenseTypeID)
+
+        require(rules.isNotEmpty()) {
+            "Chưa có cấu hình số lượng câu hỏi cho hạng bằng này"
+        }
+
+        val questionsByType = rules.associate { rule ->
+            rule.questionTypeID to database.questionDao()
+                .getQuestionsByTypeOnce(rule.questionTypeID)
+        }
+
+        val criticalQuestions = database.questionDao()
+            .getCriticalQuestionsOnce()
+            .filter { question ->
+                rules.any { it.questionTypeID == question.questionTypeID }
+            }
+
+        require(criticalQuestions.isNotEmpty()) {
+            "Không có câu điểm liệt phù hợp để tạo đề thi"
+        }
+
+        // Chọn trước một câu điểm liệt để đảm bảo đề luôn có ít nhất một câu.
+        val requiredCritical = criticalQuestions.random()
+        val selectedQuestions = mutableListOf<QuestionEntity>()
+
+        for (rule in rules) {
+            val pool = questionsByType[rule.questionTypeID].orEmpty()
+
+            require(pool.size >= rule.quantity) {
+                "Chương ${rule.questionTypeID} không đủ câu hỏi để tạo đề"
+            }
+
+            if (rule.questionTypeID == requiredCritical.questionTypeID) {
+                val remaining = pool
+                    .filter { it.questionID != requiredCritical.questionID }
+                    .shuffled()
+                    .take(rule.quantity - 1)
+
+                selectedQuestions += requiredCritical
+                selectedQuestions += remaining
+            } else {
+                selectedQuestions += pool.shuffled().take(rule.quantity)
+            }
+        }
+
+        require(selectedQuestions.size == licenseType.totalQuestion) {
+            "Số câu trong cấu hình không khớp tổng số câu của đề thi"
+        }
+
+        return MockExam(
+            licenseTypeID = licenseTypeID,
+            questions = selectedQuestions.shuffled(),
+            durationMinutes = licenseType.examTime,
+            passingScore = licenseType.passingScore
         )
     }
 

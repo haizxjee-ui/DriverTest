@@ -24,6 +24,9 @@ import com.example.drivertest.data.local.entity.QuestionTypeEntity
 import com.example.drivertest.data.local.entity.WrongQuestionEntity
 import PracticeProgressEntity
 import UserQuestionProgressEntity
+import com.example.drivertest.data.local.dao.MockExamDao
+import com.example.drivertest.data.local.entity.MockExamEntity
+import com.example.drivertest.data.local.entity.MockExamQuestionEntity
 
 @Database(
     entities = [
@@ -37,9 +40,11 @@ import UserQuestionProgressEntity
         ExamDetailEntity::class,
         UserQuestionProgressEntity::class,
         PracticeProgressEntity::class,
-        WrongQuestionEntity::class
+        WrongQuestionEntity::class,
+        MockExamEntity::class,
+        MockExamQuestionEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -55,4 +60,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userQuestionProgressDao(): UserQuestionProgressDao
     abstract fun practiceProgressDao(): PracticeProgressDao
     abstract fun wrongQuestionDao(): WrongQuestionDao
+    abstract fun mockExamDao(): MockExamDao
 }

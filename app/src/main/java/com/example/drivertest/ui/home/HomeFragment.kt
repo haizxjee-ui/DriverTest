@@ -54,6 +54,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 R.id.action_homeFragment_to_wrongQuestionFragment
             )
         }
+
+        binding.cardMockExam.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_mockExamFragment
+            )
+        }
     }
 
     private fun observeCurrentLicense() {

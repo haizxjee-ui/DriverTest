@@ -38,6 +38,60 @@ private val MIGRATION_1_2 = object : Migration(1, 2) {
     }
 }
 
+private val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `mock_exams` (
+                `mockExamID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `licenseTypeID` INTEGER NOT NULL,
+                `examNumber` INTEGER NOT NULL,
+                FOREIGN KEY(`licenseTypeID`)
+                    REFERENCES `license_types`(`licenseTypeID`)
+                    ON UPDATE NO ACTION
+                    ON DELETE RESTRICT
+            )
+            """.trimIndent()
+        )
+
+        db.execSQL(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS
+            `index_mock_exams_licenseTypeID_examNumber`
+            ON `mock_exams` (`licenseTypeID`, `examNumber`)
+            """.trimIndent()
+        )
+
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `mock_exam_questions` (
+                `mockExamID` INTEGER NOT NULL,
+                `questionID` INTEGER NOT NULL,
+                `questionOrder` INTEGER NOT NULL,
+                PRIMARY KEY(`mockExamID`, `questionOrder`),
+                FOREIGN KEY(`mockExamID`)
+                    REFERENCES `mock_exams`(`mockExamID`)
+                    ON UPDATE NO ACTION
+                    ON DELETE CASCADE,
+                FOREIGN KEY(`questionID`)
+                    REFERENCES `questions`(`questionID`)
+                    ON UPDATE NO ACTION
+                    ON DELETE RESTRICT
+            )
+            """.trimIndent()
+        )
+
+        db.execSQL(
+            """
+            CREATE INDEX IF NOT EXISTS
+            `index_mock_exam_questions_questionID`
+            ON `mock_exam_questions` (`questionID`)
+            """.trimIndent()
+        )
+    }
+}
+
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
@@ -52,7 +106,10 @@ object DatabaseModule {
             AppDatabase::class.java,
             "app_database"
         )
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(
+                MIGRATION_1_2,
+                MIGRATION_2_3
+            )
             .build()
     }
 

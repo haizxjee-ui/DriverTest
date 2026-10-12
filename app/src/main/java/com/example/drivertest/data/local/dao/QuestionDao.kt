@@ -69,4 +69,19 @@ interface QuestionDao {
         questionTypeID: Int
     ): Flow<List<QuestionEntity>>
 
+    @Query("""
+    SELECT * FROM questions
+    WHERE questionTypeID = :questionTypeID
+    ORDER BY questionID
+""")
+    suspend fun getQuestionsByTypeOnce(
+        questionTypeID: Int
+    ): List<QuestionEntity>
+
+    @Query("""
+    SELECT * FROM questions
+    WHERE isCritical = 1
+    ORDER BY questionID
+""")
+    suspend fun getCriticalQuestionsOnce(): List<QuestionEntity>
 }
