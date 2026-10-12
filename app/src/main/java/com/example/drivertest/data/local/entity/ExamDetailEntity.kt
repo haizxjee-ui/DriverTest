@@ -31,7 +31,7 @@ data class ExamDetailEntity(
     @PrimaryKey(autoGenerate = true) val examDetailID: Int = 0,
     val examID: Int,
     val questionID: Int,
-    val selectedAnswerID: Int,
+    val selectedAnswerID: Int?,
     val isCorrect: Boolean,
     val questionOrder: Int
 )

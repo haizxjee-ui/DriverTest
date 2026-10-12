@@ -26,6 +26,7 @@ class MockExamTakingFragment :
     private var _binding: FragmentMockExamTakingBinding? = null
     private val binding get() = _binding!!
 
+    private var navigatedToResultExamID: Int? = null
     private val viewModel: MockExamTakingViewModel by viewModels()
 
     private lateinit var answerAdapter: MockExamAnswerAdapter
@@ -161,14 +162,37 @@ class MockExamTakingFragment :
 
                     updateNavigationButtons(state)
 
-                    binding.btnSubmit.isEnabled = !state.isSubmitted
+                    binding.btnSubmit.isEnabled =
+                        !state.isSubmitted && !state.isSavingResult
 
-                    if (state.isSubmitted) {
-                        showExamResult(
-                            correctCount = state.correctCount,
-                            totalQuestions = state.questions.size,
-                            isPassed = state.isPassed
-                        )
+                    if (state.isSavingResult) {
+                        binding.btnSubmit.text = "Đang lưu kết quả..."
+                    } else {
+                        binding.btnSubmit.text = "Nộp bài"
+                    }
+
+                    state.saveErrorMessage?.let { message ->
+                        android.widget.Toast.makeText(
+                            requireContext(),
+                            message,
+                            android.widget.Toast.LENGTH_LONG
+                        ).show()
+
+                        viewModel.clearSaveErrorMessage()
+                    }
+
+                    state.savedExamID?.let { savedID ->
+                        if (navigatedToResultExamID != savedID) {
+                            navigatedToResultExamID = savedID
+
+                            findNavController().navigate(
+                                R.id.action_mockExamTakingFragment_to_examResultFragment,
+                                Bundle().apply {
+                                    putInt("examID", savedID)
+                                    putInt("examNumber", examNumber)
+                                }
+                            )
+                        }
                     }
                 }
             }

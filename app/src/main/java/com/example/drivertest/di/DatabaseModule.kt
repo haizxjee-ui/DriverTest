@@ -92,6 +92,61 @@ private val MIGRATION_2_3 = object : Migration(2, 3) {
     }
 }
 
+private val MIGRATION_3_4 = object : Migration(3, 4) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `exam_details_new` (
+                `examDetailID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `examID` INTEGER NOT NULL,
+                `questionID` INTEGER NOT NULL,
+                `selectedAnswerID` INTEGER,
+                `isCorrect` INTEGER NOT NULL,
+                `questionOrder` INTEGER NOT NULL,
+                FOREIGN KEY(`examID`)
+                    REFERENCES `exams`(`examID`)
+                    ON UPDATE NO ACTION
+                    ON DELETE RESTRICT,
+                FOREIGN KEY(`questionID`)
+                    REFERENCES `questions`(`questionID`)
+                    ON UPDATE NO ACTION
+                    ON DELETE RESTRICT,
+                FOREIGN KEY(`selectedAnswerID`)
+                    REFERENCES `answers`(`answerID`)
+                    ON UPDATE NO ACTION
+                    ON DELETE RESTRICT
+            )
+            """.trimIndent()
+        )
+
+        db.execSQL(
+            """
+            INSERT INTO `exam_details_new` (
+                `examDetailID`,
+                `examID`,
+                `questionID`,
+                `selectedAnswerID`,
+                `isCorrect`,
+                `questionOrder`
+            )
+            SELECT
+                `examDetailID`,
+                `examID`,
+                `questionID`,
+                `selectedAnswerID`,
+                `isCorrect`,
+                `questionOrder`
+            FROM `exam_details`
+            """.trimIndent()
+        )
+
+        db.execSQL("DROP TABLE `exam_details`")
+        db.execSQL(
+            "ALTER TABLE `exam_details_new` RENAME TO `exam_details`"
+        )
+    }
+}
+
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
@@ -108,7 +163,8 @@ object DatabaseModule {
         )
             .addMigrations(
                 MIGRATION_1_2,
-                MIGRATION_2_3
+                MIGRATION_2_3,
+                MIGRATION_3_4
             )
             .build()
     }

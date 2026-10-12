@@ -114,11 +114,10 @@ class WrongQuestionFragment :
             ) {
                 combine(
                     viewModel.questions,
-                    viewModel.currentIndex,
-                    viewModel.answerStates
-                ) { questions, index, answerStates ->
-                    Triple(questions, index, answerStates)
-                }.collect { (questions, index, answerStates) ->
+                    viewModel.currentIndex
+                ) { questions, index ->
+                    Pair(questions, index)
+                }.collect { (questions, index) ->
 
                     if (questions.isEmpty()) {
                         showEmptyState()
@@ -128,30 +127,15 @@ class WrongQuestionFragment :
                     val question = questions.getOrNull(index)
                         ?: return@collect
 
+                    val questionID = question.question.questionID
+                    val answerState = viewModel.getAnswerState(questionID)
+
                     displayQuestion(
                         question = question,
                         questionNumber = index + 1,
-                        totalQuestions = questions.size
+                        totalQuestions = questions.size,
+                        answerState = answerState
                     )
-
-                    val questionID = question.question.questionID
-                    val answerState = answerStates[questionID]
-
-                    if (answerState != null) {
-                        val answerLabels = listOf("A", "B", "C", "D", "E")
-                        val selectedPosition =
-                            answerLabels.indexOf(answerState.selectedAnswer)
-
-                        if (selectedPosition >= 0) {
-                            answerAdapter.restoreResult(
-                                answerState.selectedAnswer
-                            )
-                        }
-
-                        showExplanation(question)
-                    } else {
-                        binding.layoutExplanation.visibility = View.GONE
-                    }
 
                     updateNavigationButtons(
                         index = index,
@@ -165,7 +149,8 @@ class WrongQuestionFragment :
     private fun displayQuestion(
         question: PracticeQuestion,
         questionNumber: Int,
-        totalQuestions: Int
+        totalQuestions: Int,
+        answerState: WrongQuestionAnswerState?
     ) {
         binding.tvQuestionNumber.text =
             "Câu $questionNumber / $totalQuestions"
@@ -179,11 +164,15 @@ class WrongQuestionFragment :
                 View.GONE
             }
 
-        answerAdapter.submitList(question.answers)
+        answerAdapter.submitList(question.answers, answerState?.selectedAnswer)
+
+        if (answerState != null) {
+            showExplanation(question)
+        } else {
+            binding.layoutExplanation.visibility = View.GONE
+        }
 
         displayImages(question.images)
-
-        binding.layoutExplanation.visibility = View.GONE
         binding.rvAnswers.visibility = View.VISIBLE
     }
 
@@ -196,11 +185,11 @@ class WrongQuestionFragment :
         // Nếu câu đã được trả lời, không xử lý thêm.
         if (viewModel.getAnswerState(questionID) != null) return
 
-        viewModel.selectAnswer(position)
-
-        // Cập nhật giao diện ngay sau khi chọn đáp án.
+        // Cập nhật giao diện ngay lập tức không có độ trễ
         answerAdapter.showResult(position)
         showExplanation(question)
+
+        viewModel.selectAnswer(position)
     }
 
     private fun showExplanation(question: PracticeQuestion) {

@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_homeFragment_to_mockExamFragment"
             app:destination="@id/mockExamFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_examResultFragment"
+            app:destination="@id/examResultFragment" />
 
     </fragment>
 
@@ -98,6 +101,25 @@
         android:id="@+id/mockExamTakingFragment"
         android:name="com.example.drivertest.ui.mock_exam.MockExamTakingFragment"
         android:label="MockExamTakingFragment"
-        tools:layout="@layout/fragment_mock_exam_taking"/>
+        tools:layout="@layout/fragment_mock_exam_taking">
+        <action
+            android:id="@+id/action_mockExamTakingFragment_to_examResultFragment"
+            app:destination="@id/examResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/examResultFragment"
+        android:name="com.example.drivertest.ui.mock_exam.ExamResultFragment"
+        android:label="fragment_exam_result"
+        tools:layout="@layout/fragment_exam_result" >
+
+        <argument
+            android:name="examID"
+            app:argType="integer" />
+
+        <argument
+            android:name="examNumber"
+            app:argType="integer" />
+
+    </fragment>
 
 </navigation>

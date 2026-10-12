@@ -22,7 +22,10 @@ data class MockExamTakingUiState(
     val remainingTimeSeconds: Int = 0,
     val isSubmitted: Boolean = false,
     val correctCount: Int = 0,
-    val isPassed: Boolean = false
+    val isPassed: Boolean = false,
+    val isSavingResult: Boolean = false,
+    val savedExamID: Int? = null,
+    val saveErrorMessage: String? = null
 )
 
 @HiltViewModel
@@ -36,8 +39,14 @@ class MockExamTakingViewModel @Inject constructor(
 
     private var licenseType: LicenseTypeEntity? = null
 
+    private var examStartTime: Long = 0L
+
+    private var currentMockExamID: Int = -1
+
     fun loadExam(mockExamID: Int) {
         if (_uiState.value.questions.isNotEmpty()) return
+
+        currentMockExamID = mockExamID
 
         viewModelScope.launch {
             _uiState.value = MockExamTakingUiState(isLoading = true)
@@ -52,6 +61,8 @@ class MockExamTakingViewModel @Inject constructor(
                 licenseType = licenseTypeDao.getLicenseTypeByID(
                     mockExam.licenseTypeID
                 ) ?: throw IllegalStateException("Không tìm thấy hạng bằng")
+
+                examStartTime = System.currentTimeMillis()
 
                 val timeSeconds = licenseType!!.examTime * 60
 
@@ -95,7 +106,11 @@ class MockExamTakingViewModel @Inject constructor(
 
     fun tickTimer() {
         val state = _uiState.value
-        if (state.isSubmitted || state.isLoading) return
+        if (
+            state.isSubmitted ||
+            state.isSavingResult ||
+            state.isLoading
+        ) return
 
         if (state.remainingTimeSeconds <= 1) {
             _uiState.value = state.copy(remainingTimeSeconds = 0)
@@ -109,8 +124,20 @@ class MockExamTakingViewModel @Inject constructor(
 
     fun submitExam() {
         val state = _uiState.value
-        if (state.isSubmitted || state.questions.isEmpty()) return
 
+        // Ngăn nộp bài nhiều lần hoặc khi đề chưa tải xong.
+        if (
+            state.isSubmitted ||
+            state.isSavingResult ||
+            state.savedExamID != null ||
+            state.questions.isEmpty()
+        ) {
+            return
+        }
+
+        val license = licenseType ?: return
+
+        // Tính số câu đúng.
         val correctCount = state.questions.count { item ->
             val selectedAnswerID =
                 state.selectedAnswers[item.question.questionID]
@@ -120,21 +147,66 @@ class MockExamTakingViewModel @Inject constructor(
             }
         }
 
-        val license = licenseType ?: return
-        val passed = correctCount >= license.passingScore &&
-                state.questions.none { item ->
-                    item.question.isCritical &&
-                            item.answers.any { answer ->
-                                answer.answerID ==
-                                        state.selectedAnswers[item.question.questionID] &&
-                                        answer.isCorrect.not()
-                            }
-                }
+        // Nếu sai câu điểm liệt thì không đạt.
+        val hasWrongCriticalQuestion = state.questions.any { item ->
+            if (!item.question.isCritical) {
+                false
+            } else {
+                val selectedAnswerID =
+                    state.selectedAnswers[item.question.questionID]
 
+                item.answers.any { answer ->
+                    answer.answerID == selectedAnswerID && !answer.isCorrect
+                }
+            }
+        }
+
+        val isPassed = correctCount >= license.passingScore &&
+                !hasWrongCriticalQuestion
+
+        // Đánh dấu đang lưu ngay lập tức để chặn các lần nộp trùng.
         _uiState.value = state.copy(
-            isSubmitted = true,
+            isSavingResult = true,
+            saveErrorMessage = null,
             correctCount = correctCount,
-            isPassed = passed
+            isPassed = isPassed
+        )
+
+        viewModelScope.launch {
+            try {
+                val mockExam = mockExamRepository.getMockExamByID(
+                    mockExamID = currentMockExamID
+                ) ?: throw IllegalStateException("Không tìm thấy đề thi")
+
+                val savedExamID = mockExamRepository.saveExamResult(
+                    licenseTypeID = mockExam.licenseTypeID,
+                    startTime = examStartTime,
+                    endTime = System.currentTimeMillis(),
+                    correctCount = correctCount,
+                    isPassed = isPassed,
+                    questions = state.questions,
+                    selectedAnswers = state.selectedAnswers
+                )
+
+                _uiState.value = _uiState.value.copy(
+                    isSavingResult = false,
+                    isSubmitted = true,
+                    savedExamID = savedExamID,
+                    saveErrorMessage = null
+                )
+            } catch (e: Exception) {
+                _uiState.value = _uiState.value.copy(
+                    isSavingResult = false,
+                    saveErrorMessage = e.message
+                        ?: "Không thể lưu kết quả. Vui lòng thử lại."
+                )
+            }
+        }
+    }
+
+    fun clearSaveErrorMessage() {
+        _uiState.value = _uiState.value.copy(
+            saveErrorMessage = null
         )
     }
 }

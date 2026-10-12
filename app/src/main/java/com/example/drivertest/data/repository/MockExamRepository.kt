@@ -2,10 +2,14 @@ package com.example.drivertest.data.repository
 
 import androidx.room.withTransaction
 import com.example.drivertest.data.local.AppDatabase
+import com.example.drivertest.data.local.entity.ExamDetailEntity
+import com.example.drivertest.data.local.entity.ExamEntity
 import com.example.drivertest.data.local.entity.MockExamEntity
 import com.example.drivertest.data.local.entity.MockExamQuestionEntity
 import com.example.drivertest.data.local.entity.QuestionEntity
 import com.example.drivertest.data.model.MockExamQuestionData
+import com.example.drivertest.data.local.entity.WrongQuestionEntity
+import com.example.drivertest.data.model.ExamResultQuestionData
 import javax.inject.Inject
 
 class MockExamRepository @Inject constructor(
@@ -233,5 +237,139 @@ class MockExamRepository @Inject constructor(
         mockExamID: Int
     ): com.example.drivertest.data.local.entity.MockExamEntity? {
         return database.mockExamDao().getMockExamByID(mockExamID)
+    }
+
+    suspend fun saveExamResult(
+        licenseTypeID: Int,
+        startTime: Long,
+        endTime: Long,
+        correctCount: Int,
+        isPassed: Boolean,
+        questions: List<MockExamQuestionData>,
+        selectedAnswers: Map<Int, Int>
+    ): Int {
+        return database.withTransaction {
+            // 1. Lưu kết quả tổng quan.
+            val examID = database.examDao().insertExam(
+                ExamEntity(
+                    licenseTypeID = licenseTypeID,
+                    startTime = startTime,
+                    endTime = endTime,
+                    status = "COMPLETED",
+                    score = correctCount,
+                    result = isPassed
+                )
+            ).toInt()
+
+            // 2. Lưu chi tiết từng câu theo đúng thứ tự đề thi.
+            val examDetails = questions.mapIndexed { index, item ->
+                val questionID = item.question.questionID
+                val selectedAnswerID = selectedAnswers[questionID]
+
+                val isCorrect = item.answers.any { answer ->
+                    answer.answerID == selectedAnswerID && answer.isCorrect
+                }
+
+                ExamDetailEntity(
+                    examID = examID,
+                    questionID = questionID,
+                    selectedAnswerID = selectedAnswerID,
+                    isCorrect = isCorrect,
+                    questionOrder = index + 1
+                )
+            }
+
+            android.util.Log.d(
+                "ExamResultDebug",
+                "Số câu nhận vào: ${questions.size}"
+            )
+
+            android.util.Log.d(
+                "ExamResultDebug",
+                "Số chi tiết chuẩn bị lưu: ${examDetails.size}"
+            )
+
+            database.examDetailDao().insertExamDetails(examDetails)
+
+            val savedDetails = database.examDetailDao()
+                .getExamDetailsByExamID(examID)
+
+            android.util.Log.d(
+                "ExamResultDebug",
+                "Số chi tiết sau khi lưu: ${savedDetails.size}"
+            )
+
+// 3. Thêm các câu đã trả lời sai vào danh sách câu sai.
+            questions.forEach { item ->
+                val questionID = item.question.questionID
+                val selectedAnswerID = selectedAnswers[questionID]
+
+                // Không thêm câu bỏ trống vào danh sách câu sai.
+                if (selectedAnswerID == null) {
+                    return@forEach
+                }
+
+                val selectedAnswer = item.answers.firstOrNull { answer ->
+                    answer.answerID == selectedAnswerID
+                } ?: return@forEach
+
+                if (!selectedAnswer.isCorrect) {
+                    database.wrongQuestionDao().insertWrongQuestion(
+                        WrongQuestionEntity(questionID = questionID)
+                    )
+                }
+            }
+
+            examID
+        }
+    }
+
+    suspend fun getExamResultQuestions(
+        examID: Int
+    ): List<ExamResultQuestionData> {
+        val details = database.examDetailDao()
+            .getExamDetailsByExamID(examID)
+
+        android.util.Log.d(
+            "ExamResultDebug",
+            "examID=$examID, số chi tiết trong DB=${details.size}"
+        )
+
+        // Giữ nguyên phần code còn lại của bạn
+
+        return details.map { detail ->
+            val question = database.questionDao()
+                .getQuestionByID(detail.questionID)
+                ?: throw IllegalStateException(
+                    "Không tìm thấy câu hỏi ${detail.questionID}"
+                )
+
+            val answers = database.answerDao()
+                .getAnswersByQuestionID(detail.questionID)
+
+            val images = database.imageDao()
+                .getImagesByQuestionID(detail.questionID)
+                .sortedBy { it.imageOrder }
+
+            ExamResultQuestionData(
+                detail = detail,
+                question = question,
+                answers = answers,
+                images = images
+            )
+        }
+    }
+
+    suspend fun getExamResultByID(
+        examID: Int
+    ): ExamEntity? {
+        return database.examDao().getExamByID(examID)
+    }
+
+    suspend fun clearAllExamHistory() {
+        database.withTransaction {
+            database.examDetailDao().deleteAllExamDetails()
+            database.examDao().deleteAllExams()
+        }
     }
 }

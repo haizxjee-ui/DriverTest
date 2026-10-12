@@ -15,13 +15,25 @@ class AnswerAdapter(
     private var selectedPosition = -1
     private var answerSubmitted = false
 
-    fun submitList(newList: List<AnswerEntity>) {
+    fun submitList(newList: List<AnswerEntity>, selectedAnswer: String? = null) {
 
         answers.clear()
         answers.addAll(newList)
 
-        selectedPosition = -1
-        answerSubmitted = false
+        if (selectedAnswer != null) {
+            val answerLabels = listOf("A", "B", "C", "D", "E")
+            val position = answerLabels.indexOf(selectedAnswer)
+            if (position >= 0) {
+                selectedPosition = position
+                answerSubmitted = true
+            } else {
+                selectedPosition = -1
+                answerSubmitted = false
+            }
+        } else {
+            selectedPosition = -1
+            answerSubmitted = false
+        }
 
         notifyDataSetChanged()
     }
