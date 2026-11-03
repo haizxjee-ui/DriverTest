@@ -11,7 +11,7 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="0dp"
     app:strokeColor="#E3E8EF"
-    app:strokeWidth="1dp">
+    app:strokeWidth="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,8 @@
                     android:layout_height="28dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_lesson"
-                    app:tint="#0D47A1" />
+                    app:tint="#0D47A1"
+                    tools:ignore="ContentDescription" />
             </FrameLayout>
 
             <LinearLayout
@@ -61,7 +62,7 @@
                         android:background="@drawable/bg_tag_chapter"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="3dp"
-                        android:text="Chương 4"
+                        android:text="@string/item_chapter_chapter"
                         android:textColor="#1E40AF"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -75,10 +76,11 @@
                         android:background="@drawable/bg_tag_warning"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="3dp"
-                        android:text="11 câu điểm liệt"
+                        android:text="@string/item_chapter_critical"
                         android:textColor="#DC2626"
                         android:textSize="12sp"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        tools:ignore="TextContrastCheck" />
                 </LinearLayout>
 
                 <!-- Tên Chương -->
@@ -89,7 +91,7 @@
                     android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="Kỹ thuật lái xe ô tô"
+                    android:text="@string/item_chapter_name"
                     android:textColor="#0F172A"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -107,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:text="Tiến độ: 35/56 câu"
+                android:text="@string/item_chapter_progress"
                 android:textColor="#475569"
                 android:textSize="14sp" />
 
@@ -116,10 +118,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="62%"
+                android:text="@string/item_chapter_progess_percent"
                 android:textColor="#1E3A8A"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
         </RelativeLayout>
 
         <!-- Thanh ProgressBar -->
@@ -152,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="56 câu hỏi"
+                android:text="@string/item_chapter_number_of_question"
                 android:textColor="#64748B"
                 android:textSize="14sp" />
 
@@ -161,7 +164,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="RelativeOverlap">
 
                 <TextView
                     android:id="@+id/btnReset"
@@ -169,7 +173,7 @@
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:paddingHorizontal="12dp"
-                    android:text="Làm lại"
+                    android:text="@string/item_chapter_reset"
                     android:textColor="#DC2626"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -181,7 +185,7 @@
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:paddingHorizontal="8dp"
-                    android:text="Bắt đầu →"
+                    android:text="@string/item_chapter_start"
                     android:textColor="#1E3A8A"
                     android:textSize="15sp"
                     android:textStyle="bold" />

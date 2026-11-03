@@ -18,11 +18,9 @@ class PracticeViewModel @Inject constructor(
     private val questionRepository: QuestionRepository
 ) : ViewModel() {
 
-    private val _chapters =
-        MutableStateFlow<List<ChapterUiModel>>(emptyList())
+    private val _chapters = MutableStateFlow<List<ChapterUiModel>>(emptyList())
 
-    val chapters: StateFlow<List<ChapterUiModel>> =
-        _chapters.asStateFlow()
+    val chapters: StateFlow<List<ChapterUiModel>> = _chapters.asStateFlow()
 
     init {
         refreshChapters()
@@ -32,15 +30,9 @@ class PracticeViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            val totalCriticalQuestions =
-                questionRepository
-                    .getCriticalQuestionCount()
-                    .first()
+            val totalCriticalQuestions = questionRepository.getCriticalQuestionCount().first()
 
-            val questionTypes =
-                repository
-                    .getAllQuestionTypes()
-                    .first()
+            val questionTypes = repository.getAllQuestionTypes().first()
 
             val chapters =
                 questionTypes.mapIndexed { index, questionType ->
@@ -54,27 +46,21 @@ class PracticeViewModel @Inject constructor(
 
                         } else {
 
-                            repository
-                                .getQuestionCount(
-                                    questionType.questionTypeID
-                                )
-                                .first()
+                            repository.getQuestionCount(questionType.questionTypeID).first()
+
                         }
 
                     val answeredQuestions =
                         if (chapterNumber == 1) {
 
-                            repository
-                                .getAnsweredCriticalQuestionCount()
-                                .first()
+                            repository.getAnsweredCriticalQuestionCount().first()
 
                         } else {
 
                             repository.getAnsweredQuestionCount(
                                 chapterNumber,
                                 questionType.questionTypeID
-                            )
-                                .first()
+                            ).first()
                         }
 
                     val criticalQuestionCount =
@@ -84,11 +70,8 @@ class PracticeViewModel @Inject constructor(
 
                         } else {
 
-                            repository
-                                .getCriticalQuestionCount(
-                                    questionType.questionTypeID
-                                )
-                                .first()
+                            repository.getCriticalQuestionCount(questionType.questionTypeID).first()
+
                         }
 
                     val progressPercent =
@@ -101,26 +84,13 @@ class PracticeViewModel @Inject constructor(
                         }
 
                     ChapterUiModel(
-                        questionTypeID =
-                            questionType.questionTypeID,
-
-                        chapterNumber =
-                            chapterNumber,
-
-                        title =
-                            questionType.name,
-
-                        totalQuestions =
-                            totalQuestions,
-
-                        answeredQuestions =
-                            answeredQuestions,
-
-                        progressPercent =
-                            progressPercent,
-
-                        criticalQuestionCount =
-                            criticalQuestionCount
+                        questionTypeID = questionType.questionTypeID,
+                        chapterNumber = chapterNumber,
+                        title = questionType.name,
+                        totalQuestions = totalQuestions,
+                        answeredQuestions = answeredQuestions,
+                        progressPercent = progressPercent,
+                        criticalQuestionCount = criticalQuestionCount
                     )
                 }
 
@@ -131,13 +101,8 @@ class PracticeViewModel @Inject constructor(
     fun resetChapter(
         chapterNumber: Int
     ) {
-
         viewModelScope.launch {
-
-            repository.resetChapter(
-                chapterNumber
-            )
-
+            repository.resetChapter(chapterNumber)
             refreshChapters()
         }
     }

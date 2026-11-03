@@ -80,11 +80,11 @@ class WrongQuestionViewModel @Inject constructor(
 
         answeredQuestionIDs.add(questionID)
 
-        _answerStates.value = _answerStates.value + (
-                questionID to WrongQuestionAnswerState(
-                    selectedAnswer = selectedAnswer,
-                    isCorrect = answer.isCorrect
-                )
+        _answerStates.value += (
+                        questionID to WrongQuestionAnswerState(
+                            selectedAnswer = selectedAnswer,
+                            isCorrect = answer.isCorrect
+                        )
                 )
     }
 

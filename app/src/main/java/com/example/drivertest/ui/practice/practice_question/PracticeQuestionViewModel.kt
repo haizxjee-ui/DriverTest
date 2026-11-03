@@ -54,11 +54,9 @@ class PracticeQuestionViewModel @Inject constructor(
 
             try {
 
-                currentChapterNumber =
-                    chapterNumber
+                currentChapterNumber = chapterNumber
 
-                currentQuestionTypeID =
-                    questionTypeID
+                currentQuestionTypeID = questionTypeID
 
                 questions = if (chapterNumber == 1) {
 
@@ -141,9 +139,8 @@ class PracticeQuestionViewModel @Inject constructor(
                 userProgress = userProgress
             )
 
-        saveCurrentQuestionProgress(
-            currentQuestion.questionID
-        )
+        saveCurrentQuestionProgress(currentQuestion.questionID)
+
     }
 
     private suspend fun saveCurrentQuestionProgress(
@@ -196,8 +193,7 @@ class PracticeQuestionViewModel @Inject constructor(
 
     fun isLastQuestion(): Boolean {
 
-        return currentQuestionIndex ==
-                questions.lastIndex
+        return currentQuestionIndex == questions.lastIndex
     }
 
     fun getCurrentQuestionNumber(): Int {

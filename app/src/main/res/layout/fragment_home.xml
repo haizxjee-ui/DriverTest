@@ -15,7 +15,8 @@
         android:background="#FFFFFF"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:ignore="DisableBaselineAlignment">
 
         <!-- Icon chiếc xe bên trái -->
         <FrameLayout
@@ -29,7 +30,8 @@
                 android:layout_gravity="center"
                 android:contentDescription="Car Icon"
                 android:src="@drawable/ic_car"
-                app:tint="#00227B" />
+                app:tint="#00227B"
+                tools:ignore="HardcodedText" />
 
         </FrameLayout>
 
@@ -44,16 +46,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ôn Thi GPLX"
+                android:text="@string/fragment_home_title"
                 android:textColor="#00227B"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="VisualLintSystemUi" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Hệ thống 600 câu hỏi mới nhất"
+                android:text="@string/fragment_home_title2"
                 android:textColor="#64748B"
                 android:textSize="13sp" />
 
@@ -116,13 +119,14 @@
                             android:layout_height="36dp"
                             android:background="#E0E7FF"
                             android:padding="8dp"
-                            android:src="@drawable/ic_assignment" />
+                            android:src="@drawable/ic_assignment"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Thi thử bộ đề"
+                            android:text="@string/fragment_home_test"
                             android:textColor="#0F172A"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -131,7 +135,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Chuẩn cấu trúc Cục CSGT"
+                            android:text="@string/fragment_home_test2"
                             android:textColor="#64748B"
                             android:textSize="12sp" />
 
@@ -143,10 +147,11 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="20 Đề thi"
+                                android:text="@string/fragment_home_test3"
                                 android:textColor="#10B981"
                                 android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:ignore="TextContrastCheck" />
 
                         </RelativeLayout>
                     </LinearLayout>
@@ -178,13 +183,14 @@
                             android:layout_height="36dp"
                             android:background="#E0E7FF"
                             android:padding="8dp"
-                            android:src="@drawable/ic_book" />
+                            android:src="@drawable/ic_book"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="600 câu lý thuyết"
+                            android:text="@string/fragment_home_practice"
                             android:textColor="#0F172A"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -193,7 +199,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Phân theo 7 chương luật"
+                            android:text="@string/fragment_home_practice2"
                             android:textColor="#64748B"
                             android:textSize="12sp" />
 
@@ -205,7 +211,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="8 chương"
+                                android:text="@string/fragment_home_practice3"
                                 android:textColor="#64748B"
                                 android:textSize="12sp" />
 
@@ -241,13 +247,14 @@
                             android:layout_height="36dp"
                             android:background="#E0E7FF"
                             android:padding="8dp"
-                            android:src="@drawable/ic_license" />
+                            android:src="@drawable/ic_license"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Đổi hạng bằng lái"
+                            android:text="@string/fragment_home_change_license"
                             android:textColor="#0F172A"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -257,7 +264,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Hạng B1"
+                            android:text="@string/fragment_home_change_license2"
                             android:textColor="#64748B"
                             android:textSize="12sp" />
 
@@ -272,7 +279,7 @@
                                 android:background="#FEE2E2"
                                 android:paddingHorizontal="6dp"
                                 android:paddingVertical="2dp"
-                                android:text="12 hạng"
+                                android:text="@string/fragment_home_change_license3"
                                 android:textColor="#DC2626"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck" />
@@ -311,13 +318,14 @@
                             android:layout_height="36dp"
                             android:background="#E0E7FF"
                             android:padding="8dp"
-                            android:src="@drawable/ic_error_outline" />
+                            android:src="@drawable/ic_error_outline"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Câu hay làm sai"
+                            android:text="@string/fragment_home_wrong_question"
                             android:textColor="#0F172A"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -326,7 +334,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Khắc phục điểm yếu"
+                            android:text="@string/fragment_home_wrong_question2"
                             android:textColor="#64748B"
                             android:textSize="12sp" />
 
@@ -342,7 +350,7 @@
                                 android:background="#FEE2E2"
                                 android:paddingHorizontal="6dp"
                                 android:paddingVertical="2dp"
-                                android:text="0 câu"
+                                android:text="@string/fragment_home_wrong_question3"
                                 android:textColor="#DC2626"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck" />
@@ -367,7 +375,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -375,12 +384,13 @@
                         android:layout_marginEnd="8dp"
                         android:contentDescription="Clock icon"
                         android:src="@drawable/ic_clock"
-                        app:tint="#1E293B" />
+                        app:tint="#1E293B"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kết quả thi gần nhất"
+                        android:text="@string/fragment_home_history"
                         android:textColor="#1E293B"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -397,10 +407,11 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="4dp"
-                    android:text="Xóa lịch sử"
+                    android:text="@string/fragment_home_delete_history"
                     android:textColor="#DC2626"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap,TouchTargetSizeCheck" />
             </RelativeLayout>
 
             <LinearLayout

@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Đề thi số 1"
+                android:text="@string/item_exam_result_header_number"
                 android:textColor="#374151"
                 android:textSize="16sp" />
 
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:gravity="center"
-                android:text="ĐẠT"
+                android:text="@string/item_exam_result_header_result"
                 android:textColor="#15803D"
                 android:textSize="26sp"
                 android:textStyle="bold" />
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="28 / 30 câu đúng"
+                android:text="@string/item_exam_result_header_score"
                 android:textColor="#1F2937"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Thời gian làm bài: 20 phút"
+                android:text="@string/item_exam_result_header_time"
                 android:textColor="#6B7280"
                 android:textSize="14sp" />
 
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="8dp"
-        android:text="Chi tiết câu trả lời"
+        android:text="@string/item_exam_result_header_title"
         android:textColor="#1F2937"
         android:textSize="18sp"
         android:textStyle="bold" />

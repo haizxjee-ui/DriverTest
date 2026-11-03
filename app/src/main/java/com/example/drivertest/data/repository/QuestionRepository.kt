@@ -39,16 +39,6 @@ class QuestionRepository @Inject constructor(
         val questions = apiService.getQuestions().question
         val questionTypes = apiService.getQuestionTypes().types
 
-        Log.d(
-            "REPOSITORY",
-            "API trả về ${questions.size} câu hỏi"
-        )
-
-        Log.d(
-            "REPOSITORY",
-            "API trả về ${questionTypes.size} loại câu hỏi"
-        )
-
         // ==========================
         // 2. Convert DTO → Entity
         // ==========================
@@ -80,21 +70,6 @@ class QuestionRepository @Inject constructor(
         val invalidQuestions = questionEntities.filter {
             it.questionTypeID !in questionTypeIDs
         }
-
-        Log.d(
-            "REPOSITORY",
-            "Question types: $questionTypeIDs"
-        )
-
-        Log.d(
-            "REPOSITORY",
-            "Total questions: ${questionEntities.size}"
-        )
-
-        Log.d(
-            "REPOSITORY",
-            "Invalid questions: ${invalidQuestions.size}"
-        )
 
         require(invalidQuestions.isEmpty()) {
             "API chứa questionType không hợp lệ"
@@ -133,10 +108,6 @@ class QuestionRepository @Inject constructor(
         // 3. Chỉ đánh dấu đã khởi tạo sau khi Transaction thành công
         dataStoreManager.setDataInitialized(true)
 
-        Log.d(
-            "REPOSITORY",
-            "Đã lưu ${questionEntities.size} câu hỏi vào Room"
-        )
     }
 
     fun getAllQuestionTypes() =

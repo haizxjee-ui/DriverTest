@@ -1,7 +1,6 @@
 package com.example.drivertest.ui.license_selection
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -9,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drivertest.R
 import com.example.drivertest.databinding.FragmentLicenseSelectionBinding
@@ -42,28 +40,34 @@ class LicenseSelectionFragment :
         setupRecyclerView()
         observeLicenseTypes()
         setupContinueButton()
+
+        // Tự động load và chọn sẵn hạng bằng đã lưu gần nhất (nếu có)
+        viewLifecycleOwner.lifecycleScope.launch {
+            val savedID = viewModel.getSavedLicenseId()
+            if (savedID != null && selectedLicenseTypeID == null) {
+                selectedLicenseTypeID = savedID
+                licenseSelectionAdapter.setSelectedLicenseId(savedID)
+            }
+        }
     }
 
     private fun setupContinueButton() {
 
         binding.btnContinue.setOnClickListener {
 
-            val selectedID = selectedLicenseTypeID
-
-            if (selectedID == null) {
-
-                Toast.makeText(
-                    requireContext(),
-                    "Vui lòng chọn hạng bằng trước khi tiếp tục",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                return@setOnClickListener
-            }
-
             viewLifecycleOwner.lifecycleScope.launch {
+                val savedID = viewModel.getSavedLicenseId()
+                val selectedID = selectedLicenseTypeID ?: savedID
 
-                // Chờ lưu DataStore hoàn thành
+                if (selectedID == null) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Vui lòng chọn hạng",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@launch
+                }
+
                 viewModel.saveSelectedLicense(selectedID)
 
                 // Sau khi lưu xong mới chuyển sang Home
@@ -98,10 +102,6 @@ class LicenseSelectionFragment :
 
                 selectedLicenseTypeID = licenseType.licenseTypeID
 
-                Log.d(
-                    "LicenseSelection",
-                    "Đang chọn: ${licenseType.name}, ID = ${licenseType.licenseTypeID}"
-                )
             }
         )
 

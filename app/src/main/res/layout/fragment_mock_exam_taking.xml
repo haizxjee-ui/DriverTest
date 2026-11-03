@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,7 +23,8 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_exam"
             android:contentDescription="Quay lại"
-            app:tint="#0D3B8E" />
+            app:tint="#0D3B8E"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -31,10 +33,11 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/btnBack"
             android:layout_marginStart="12dp"
-            android:text="Thi thử"
+            android:text="@string/fragment_mock_exam_taking_title"
             android:textSize="20sp"
             android:textColor="#0D3B8E"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="VisualLintSystemUi" />
 
         <TextView
             android:id="@+id/tvTimer"
@@ -45,10 +48,11 @@
             android:gravity="center"
             android:paddingHorizontal="12dp"
             android:background="@drawable/bg_critical_tag"
-            android:text="20:00"
+            android:text="@string/fragment_mock_exam_taking_timer"
             android:textColor="#B91C1C"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap,VisualLintSystemUi" />
 
     </RelativeLayout>
 
@@ -59,6 +63,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/layoutHeader"
+        android:background="#E5E7EB"
+        tools:ignore="ObsoleteLayoutParam" />
 
     <!-- Nội dung câu hỏi -->
 
@@ -78,7 +89,7 @@
                 android:id="@+id/tvQuestionNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Câu 1/30"
+                android:text="@string/fragment_mock_exam_taking_order"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#111827" />
@@ -93,7 +104,7 @@
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:text="Câu điểm liệt"
+                android:text="@string/fragment_mock_exam_taking_critical"
                 android:textColor="#B91C1C"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -104,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Nội dung câu hỏi"
+                android:text="@string/fragment_mock_exam_taking_content"
                 android:textColor="#111827"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -150,8 +161,9 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:text="Câu trước"
-                android:textAllCaps="false" />
+                android:text="@string/fragment_mock_exam_taking_previous"
+                android:textAllCaps="false"
+                tools:ignore="VisualLintButtonSize" />
 
             <Space
                 android:layout_width="8dp"
@@ -162,8 +174,9 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:text="Câu tiếp"
-                android:textAllCaps="false" />
+                android:text="@string/fragment_mock_exam_taking_next"
+                android:textAllCaps="false"
+                tools:ignore="VisualLintButtonSize" />
 
         </LinearLayout>
 
@@ -172,11 +185,12 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:text="Nộp bài"
+            android:text="@string/fragment_mock_exam_taking_submit"
             android:textAllCaps="false"
             android:textStyle="bold"
             app:cornerRadius="10dp"
-            app:backgroundTint="#1D4ED8" />
+            app:backgroundTint="#1D4ED8"
+            tools:ignore="VisualLintButtonSize" />
 
     </LinearLayout>
 

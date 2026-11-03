@@ -45,6 +45,11 @@ class LicenseSelectionAdapter(
         notifyDataSetChanged()
     }
 
+    fun setSelectedLicenseId(id: Int?) {
+        selectedLicenseId = id
+        notifyDataSetChanged()
+    }
+
     inner class LicenseViewHolder(
         private val binding: ItemLicenseTypeBinding
     ) : RecyclerView.ViewHolder(binding.root) {

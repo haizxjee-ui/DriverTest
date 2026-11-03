@@ -39,7 +39,6 @@ class PracticeFragment : Fragment(R.layout.fragment_practice) {
 
     override fun onResume() {
         super.onResume()
-
         viewModel.refreshChapters()
     }
 
@@ -50,15 +49,8 @@ class PracticeFragment : Fragment(R.layout.fragment_practice) {
             onChapterClick = { chapter ->
 
                 val bundle = Bundle().apply {
-                    putInt(
-                        "chapterNumber",
-                        chapter.chapterNumber
-                    )
-
-                    putInt(
-                        "questionTypeID",
-                        chapter.questionTypeID
-                    )
+                    putInt("chapterNumber", chapter.chapterNumber)
+                    putInt("questionTypeID", chapter.questionTypeID)
                 }
 
                 findNavController().navigate(
@@ -68,20 +60,15 @@ class PracticeFragment : Fragment(R.layout.fragment_practice) {
             },
 
             onResetClick = { chapter ->
-
-                viewModel.resetChapter(
-                    chapter.chapterNumber
-                )
+                viewModel.resetChapter(chapter.chapterNumber)
             }
         )
 
         binding.rvChapters.apply {
 
-            layoutManager =
-                LinearLayoutManager(requireContext())
+            layoutManager = LinearLayoutManager(requireContext())
 
-            adapter =
-                chapterAdapter
+            adapter = chapterAdapter
 
             setHasFixedSize(true)
         }

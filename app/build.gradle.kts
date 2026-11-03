@@ -60,6 +60,7 @@ dependencies {
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
+    testImplementation(libs.coroutines.test)
 
     // 1. Preferences DataStore (Lưu dạng Key-Value)
     implementation(libs.androidx.datastore.preferences)

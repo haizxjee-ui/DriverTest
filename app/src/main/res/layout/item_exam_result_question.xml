@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
@@ -29,10 +30,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Câu 1"
+                android:text="@string/item_exam_result_question_number"
                 android:textColor="#374151"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="VisualLintSystemUi" />
 
             <TextView
                 android:id="@+id/tvAnswerStatus"
@@ -41,10 +43,11 @@
                 android:background="#DCFCE7"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
-                android:text="Đúng"
+                android:text="@string/item_exam_result_question_correct"
                 android:textColor="#15803D"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="VisualLintSystemUi" />
 
         </LinearLayout>
 
@@ -54,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Nội dung câu hỏi"
+            android:text="@string/item_exam_result_question_content"
             android:textColor="#111827"
             android:textSize="16sp"
             android:lineSpacingExtra="3dp" />
@@ -90,7 +93,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Giải thích"
+                android:text="@string/item_exam_result_explanaiton"
                 android:textColor="#374151"
                 android:textSize="14sp"
                 android:textStyle="bold" />

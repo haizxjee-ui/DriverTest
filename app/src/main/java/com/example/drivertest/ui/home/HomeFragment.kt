@@ -1,5 +1,6 @@
 package com.example.drivertest.ui.home
 
+import android.R.attr.name
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -124,9 +125,26 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         val tvResultStatus = itemView.findViewById<TextView>(R.id.tvResultStatus)
                         val tvResultDetail = itemView.findViewById<TextView>(R.id.tvResultDetail)
                         val ivResultIcon = itemView.findViewById<ImageView>(R.id.ivResultIcon)
+                        val tvHistoryLicense = itemView.findViewById<TextView>(R.id.tvLicenseType)
 
                         val displayIndex = index + 1
-                        tvExamName.text = "Bài thi #$displayIndex"
+                        tvExamName.text = "Bài thi $displayIndex"
+
+                        when(exam.licenseTypeID) {
+                            1 -> tvHistoryLicense.text = "Hạng B"
+                            2 -> tvHistoryLicense.text = "Hạng C1"
+                            3 -> tvHistoryLicense.text = "Hạng C"
+                            4 -> tvHistoryLicense.text = "Hạng D"
+                            5 -> tvHistoryLicense.text = "Hạng BE"
+                            6 -> tvHistoryLicense.text = "Hạng D1"
+                            7 -> tvHistoryLicense.text = "Hạng D2"
+                            8 -> tvHistoryLicense.text = "Hạng C1E"
+                            9 -> tvHistoryLicense.text = "Hạng CE"
+                            10 -> tvHistoryLicense.text = "Hạng D1E"
+                            11 -> tvHistoryLicense.text = "Hạng D2E"
+                            12 -> tvHistoryLicense.text = "Hạng DE"
+
+                        }
 
                         val durationSeconds = ((exam.endTime - exam.startTime).coerceAtLeast(0L) / 1000).toInt()
                         val minutes = durationSeconds / 60
@@ -145,7 +163,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             tvResultStatus.text = "KHÔNG ĐẠT"
                             tvResultStatus.setTextColor(Color.parseColor("#DC2626"))
                             tvResultStatus.setBackgroundColor(Color.parseColor("#FEE2E2"))
-                            ivResultIcon.setImageResource(R.drawable.ic_assignment)
+                            ivResultIcon.setImageResource(R.drawable.ic_cancel)
                             ivResultIcon.setColorFilter(Color.parseColor("#DC2626"))
                         }
 
