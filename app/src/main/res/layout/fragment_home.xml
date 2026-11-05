@@ -212,7 +212,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/fragment_home_practice3"
-                                android:textColor="#64748B"
+                                android:textStyle="bold"
+                                android:textColor="@color/primary"
                                 android:textSize="12sp" />
 
                         </RelativeLayout>
@@ -276,11 +277,11 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="#FEE2E2"
                                 android:paddingHorizontal="6dp"
                                 android:paddingVertical="2dp"
                                 android:text="@string/fragment_home_change_license3"
-                                android:textColor="#DC2626"
+                                android:textStyle="bold"
+                                android:textColor="#FF9800"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck" />
 
@@ -347,10 +348,10 @@
                                 android:id="@+id/tvWrongQuestionCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="#FEE2E2"
                                 android:paddingHorizontal="6dp"
                                 android:paddingVertical="2dp"
                                 android:text="@string/fragment_home_wrong_question3"
+                                android:textStyle="bold"
                                 android:textColor="#DC2626"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck" />

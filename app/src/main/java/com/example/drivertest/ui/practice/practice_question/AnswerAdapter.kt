@@ -1,5 +1,6 @@
 package com.example.drivertest.ui.practice.practice_question
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ class AnswerAdapter(
     private var selectedPosition = -1
     private var answerSubmitted = false
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(newList: List<AnswerEntity>, selectedAnswer: String? = null) {
 
         answers.clear()
@@ -38,6 +40,7 @@ class AnswerAdapter(
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun showResult(position: Int) {
 
         selectedPosition = position
@@ -46,20 +49,14 @@ class AnswerAdapter(
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun restoreResult(
         selectedAnswer: String
     ) {
 
-        val answerLabels = listOf(
-            "A",
-            "B",
-            "C",
-            "D",
-            "E"
-        )
+        val answerLabels = listOf("A", "B", "C", "D", "E")
 
-        val position =
-            answerLabels.indexOf(selectedAnswer)
+        val position = answerLabels.indexOf(selectedAnswer)
 
         if (position == -1) {
             return
@@ -109,19 +106,11 @@ class AnswerAdapter(
             position: Int
         ) {
 
-            val answerLabels = listOf(
-                "A",
-                "B",
-                "C",
-                "D",
-                "E"
-            )
+            val answerLabels = listOf("A", "B", "C", "D", "E")
 
-            binding.tvAnswerLabel.text =
-                answerLabels[position]
+            binding.tvAnswerLabel.text = answerLabels[position]
 
-            binding.tvAnswerContent.text =
-                answer.content
+            binding.tvAnswerContent.text = answer.content
 
             if (answerSubmitted) {
 
@@ -156,10 +145,8 @@ class AnswerAdapter(
 
                 binding.root.setOnClickListener {
 
-                    onAnswerClick(
-                        answer,
-                        position
-                    )
+                    onAnswerClick(answer, position)
+
                 }
             }
         }

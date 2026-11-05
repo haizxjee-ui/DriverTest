@@ -235,7 +235,7 @@ class MockExamRepository @Inject constructor(
 
     suspend fun getMockExamByID(
         mockExamID: Int
-    ): com.example.drivertest.data.local.entity.MockExamEntity? {
+    ): MockExamEntity? {
         return database.mockExamDao().getMockExamByID(mockExamID)
     }
 
@@ -279,25 +279,7 @@ class MockExamRepository @Inject constructor(
                 )
             }
 
-            android.util.Log.d(
-                "ExamResultDebug",
-                "Số câu nhận vào: ${questions.size}"
-            )
-
-            android.util.Log.d(
-                "ExamResultDebug",
-                "Số chi tiết chuẩn bị lưu: ${examDetails.size}"
-            )
-
             database.examDetailDao().insertExamDetails(examDetails)
-
-            val savedDetails = database.examDetailDao()
-                .getExamDetailsByExamID(examID)
-
-            android.util.Log.d(
-                "ExamResultDebug",
-                "Số chi tiết sau khi lưu: ${savedDetails.size}"
-            )
 
 // 3. Thêm các câu đã trả lời sai vào danh sách câu sai.
             questions.forEach { item ->
@@ -329,11 +311,6 @@ class MockExamRepository @Inject constructor(
     ): List<ExamResultQuestionData> {
         val details = database.examDetailDao()
             .getExamDetailsByExamID(examID)
-
-        android.util.Log.d(
-            "ExamResultDebug",
-            "examID=$examID, số chi tiết trong DB=${details.size}"
-        )
 
         // Giữ nguyên phần code còn lại của bạn
 

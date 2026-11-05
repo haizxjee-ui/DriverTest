@@ -22,17 +22,13 @@ class PracticeQuestionViewModel @Inject constructor(
     private val wrongQuestionRepository: WrongQuestionRepository
 ) : ViewModel() {
 
-    private val _question =
-        MutableStateFlow<PracticeQuestionUiModel?>(null)
+    private val _question = MutableStateFlow<PracticeQuestionUiModel?>(null)
 
-    val question: StateFlow<PracticeQuestionUiModel?> =
-        _question.asStateFlow()
+    val question: StateFlow<PracticeQuestionUiModel?> = _question.asStateFlow()
 
-    private val _isLoading =
-        MutableStateFlow(false)
+    private val _isLoading = MutableStateFlow(false)
 
-    val isLoading: StateFlow<Boolean> =
-        _isLoading.asStateFlow()
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
     private var questions =
         emptyList<com.example.drivertest.data.local.entity.QuestionEntity>()
@@ -60,17 +56,12 @@ class PracticeQuestionViewModel @Inject constructor(
 
                 questions = if (chapterNumber == 1) {
 
-                    questionRepository
-                        .getCriticalQuestions()
-                        .first()
+                    questionRepository.getCriticalQuestions().first()
 
                 } else {
 
-                    questionRepository
-                        .getQuestionsByType(
-                            questionTypeID
-                        )
-                        .first()
+                    questionRepository.getQuestionsByType(questionTypeID).first()
+
                 }
 
                 if (questions.isEmpty()) {
@@ -80,21 +71,19 @@ class PracticeQuestionViewModel @Inject constructor(
                     return@launch
                 }
 
-                val progress =
-                    practiceRepository
-                        .getPracticeProgress(currentChapterNumber)
+                val progress = practiceRepository.getPracticeProgress(currentChapterNumber)
 
                 currentQuestionIndex = if (progress != null) {
 
                     questions.indexOfFirst {
-                        it.questionID ==
-                                progress.currentQuestionID
+
+                        it.questionID == progress.currentQuestionID
+
                     }.takeIf {
                         it >= 0
                     } ?: 0
 
                 } else {
-
                     0
                 }
 
@@ -103,20 +92,16 @@ class PracticeQuestionViewModel @Inject constructor(
             } finally {
 
                 _isLoading.value = false
+
             }
         }
     }
 
     private suspend fun loadCurrentQuestion() {
 
-        val currentQuestion =
-            questions[currentQuestionIndex]
+        val currentQuestion = questions[currentQuestionIndex]
 
-        val answers =
-            questionRepository
-                .getAnswersByQuestionID(
-                    currentQuestion.questionID
-                )
+        val answers = questionRepository.getAnswersByQuestionID(currentQuestion.questionID)
 
         val images =
             questionRepository
@@ -124,7 +109,7 @@ class PracticeQuestionViewModel @Inject constructor(
                     currentQuestion.questionID
                 )
 
-        val userProgress =
+        val userQuestionProgress =
             practiceRepository
                 .getQuestionProgress(
                     currentChapterNumber,
@@ -136,7 +121,7 @@ class PracticeQuestionViewModel @Inject constructor(
                 question = currentQuestion,
                 answers = answers,
                 images = images,
-                userProgress = userProgress
+                userQuestionProgress = userQuestionProgress
             )
 
         saveCurrentQuestionProgress(currentQuestion.questionID)
@@ -159,10 +144,7 @@ class PracticeQuestionViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            if (
-                currentQuestionIndex >=
-                questions.lastIndex
-            ) {
+            if (currentQuestionIndex >= questions.lastIndex) {
                 return@launch
             }
 
@@ -187,7 +169,6 @@ class PracticeQuestionViewModel @Inject constructor(
     }
 
     fun isFirstQuestion(): Boolean {
-
         return currentQuestionIndex == 0
     }
 
@@ -223,13 +204,7 @@ class PracticeQuestionViewModel @Inject constructor(
 
             val selectedAnswer = answers[position]
 
-            val answerLabels = listOf(
-                "A",
-                "B",
-                "C",
-                "D",
-                "E"
-            )
+            val answerLabels = listOf("A", "B", "C", "D", "E")
 
             val progress = UserQuestionProgressEntity(
                 chapterNumber = currentChapterNumber,
@@ -244,9 +219,7 @@ class PracticeQuestionViewModel @Inject constructor(
 
             // Nếu trả lời sai, thêm câu hỏi vào danh sách câu sai
             if (!selectedAnswer.isCorrect) {
-                wrongQuestionRepository.addWrongQuestion(
-                    currentQuestion.questionID
-                )
+                wrongQuestionRepository.addWrongQuestion(currentQuestion.questionID)
             }
         }
     }

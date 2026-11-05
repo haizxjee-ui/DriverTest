@@ -1,5 +1,6 @@
 package com.example.drivertest.ui.practice.practice_question
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -24,11 +25,9 @@ class PracticeQuestionFragment :
 
     private var _binding: FragmentPracticeQuestionBinding? = null
 
-    private val binding
-        get() = _binding!!
+    private val binding get() = _binding!!
 
-    private val viewModel:
-            PracticeQuestionViewModel by viewModels()
+    private val viewModel: PracticeQuestionViewModel by viewModels()
 
     private val chapterNumber: Int
         get() = requireArguments()
@@ -122,9 +121,7 @@ class PracticeQuestionFragment :
 
                     if (question != null) {
 
-                        displayQuestion(
-                            question
-                        )
+                        displayQuestion(question)
 
                         updateNavigationButtons()
                     }
@@ -133,11 +130,11 @@ class PracticeQuestionFragment :
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun displayQuestion(
         question: PracticeQuestionUiModel
     ) {
-        binding.tvQuestion.text =
-            question.question.content
+        binding.tvQuestion.text = question.question.content
 
         binding.tvQuestionNumber.text =
             "Câu ${viewModel.getCurrentQuestionNumber()} / ${viewModel.getTotalQuestionCount()}"
@@ -152,16 +149,15 @@ class PracticeQuestionFragment :
 
         displayImages(question.images)
 
-        val userProgress = question.userProgress
+        val userQuestionProgress = question.userQuestionProgress
 
         if (
-            userProgress != null &&
-            userProgress.isAnswered &&
-            userProgress.selectedAnswer != null
+            userQuestionProgress != null &&
+            userQuestionProgress.isAnswered &&
+            userQuestionProgress.selectedAnswer != null
         ) {
-            answerAdapter.restoreResult(
-                userProgress.selectedAnswer
-            )
+            answerAdapter.restoreResult(userQuestionProgress.selectedAnswer)
+
             showExplanation()
         } else {
             binding.layoutExplanation.visibility = View.GONE
@@ -170,11 +166,9 @@ class PracticeQuestionFragment :
 
     private fun updateNavigationButtons() {
 
-        binding.btnPrevious.isEnabled =
-            !viewModel.isFirstQuestion()
+        binding.btnPrevious.isEnabled = !viewModel.isFirstQuestion()
 
-        binding.btnNext.isEnabled =
-            !viewModel.isLastQuestion()
+        binding.btnNext.isEnabled = !viewModel.isLastQuestion()
     }
 
     private fun displayImages(
@@ -185,19 +179,16 @@ class PracticeQuestionFragment :
 
         if (images.isEmpty()) {
 
-            binding.layoutImages.visibility =
-                View.GONE
+            binding.layoutImages.visibility = View.GONE
 
             return
         }
 
-        binding.layoutImages.visibility =
-            View.VISIBLE
+        binding.layoutImages.visibility = View.VISIBLE
 
         images.forEach { image ->
 
-            val imageView =
-                ImageView(requireContext())
+            val imageView = ImageView(requireContext())
 
             imageView.layoutParams =
                 LinearLayout.LayoutParams(

@@ -3,6 +3,7 @@ package com.example.drivertest.ui.home
 import android.R.attr.name
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log.e
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -90,8 +91,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 viewModel.currentLicense.collect { licenseType ->
 
                     licenseType?.let {
-                        binding.tvCurrentLicense.text =
-                            "Hạng ${it.name}"
+                        binding.tvCurrentLicense.text = "Hạng ${it.name}"
                     }
                 }
             }
@@ -113,6 +113,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.examHistory.collect { exams ->
                     binding.layoutExamResultsContainer.removeAllViews()
+
+                    if (exams.isEmpty()) {
+                        binding.tvClearHistory.visibility = View.GONE
+                    } else {
+                        binding.tvClearHistory.visibility = View.VISIBLE
+                    }
 
                     exams.forEachIndexed { index, exam ->
                         val itemView = layoutInflater.inflate(

@@ -1,5 +1,6 @@
 package com.example.drivertest.ui.practice.practice_wrong_question
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -146,14 +147,14 @@ class WrongQuestionFragment :
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun displayQuestion(
         question: PracticeQuestion,
         questionNumber: Int,
         totalQuestions: Int,
         answerState: WrongQuestionAnswerState?
     ) {
-        binding.tvQuestionNumber.text =
-            "Câu $questionNumber / $totalQuestions"
+        binding.tvQuestionNumber.text = "Câu $questionNumber / $totalQuestions"
 
         binding.tvQuestion.text = question.question.content
 

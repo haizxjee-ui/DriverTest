@@ -1,5 +1,6 @@
 package com.example.drivertest.ui.license_selection
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -40,11 +41,13 @@ class LicenseSelectionAdapter(
         return licenseTypes.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(newList: List<LicenseTypeEntity>) {
         licenseTypes = newList
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setSelectedLicenseId(id: Int?) {
         selectedLicenseId = id
         notifyDataSetChanged()
@@ -54,19 +57,16 @@ class LicenseSelectionAdapter(
         private val binding: ItemLicenseTypeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
         fun bind(licenseType: LicenseTypeEntity) {
 
-            binding.tvLicenseName.text =
-                "Hạng " + licenseType.name
+            binding.tvLicenseName.text = "Hạng " + licenseType.name
 
-            binding.tvTotalQuestions.text =
-                licenseType.totalQuestion.toString() + " Câu"
+            binding.tvTotalQuestions.text = licenseType.totalQuestion.toString() + " Câu"
 
-            binding.tvDescription.text =
-                licenseType.description
+            binding.tvDescription.text = licenseType.description
 
-            binding.tvTime.text =
-                licenseType.examTime.toString() + " Phút"
+            binding.tvTime.text = licenseType.examTime.toString() + " Phút"
 
             binding.tvPassingScore.text =
                 licenseType.passingScore.toString() +
@@ -74,12 +74,10 @@ class LicenseSelectionAdapter(
                         licenseType.totalQuestion.toString()
 
             // RadioButton
-            binding.radioButton.isChecked =
-                selectedLicenseId == licenseType.licenseTypeID
+            binding.radioButton.isChecked = selectedLicenseId == licenseType.licenseTypeID
 
             // Viền Card
-            binding.cardContainer.isSelected =
-                selectedLicenseId == licenseType.licenseTypeID
+            binding.cardContainer.isSelected = selectedLicenseId == licenseType.licenseTypeID
 
             // Nhấn vào Card
             binding.cardContainer.setOnClickListener {

@@ -1,6 +1,5 @@
 package com.example.drivertest.data.repository
 
-import android.util.Log
 import androidx.room.withTransaction
 import com.example.drivertest.data.DataStoreManager
 import com.example.drivertest.data.local.AppDatabase
@@ -109,9 +108,6 @@ class QuestionRepository @Inject constructor(
         dataStoreManager.setDataInitialized(true)
 
     }
-
-    fun getAllQuestionTypes() =
-        database.questionTypeDao().getAllQuestionTypes()
 
     fun getCriticalQuestionCount(): Flow<Int> {
         return database.questionDao().getTotalCriticalQuestionCount()

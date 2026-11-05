@@ -95,7 +95,6 @@ class LicenseSelectionFragment :
 
     private fun setupRecyclerView() {
 
-
         licenseSelectionAdapter = LicenseSelectionAdapter(
             licenseTypes = emptyList(),
             onLicenseClick = { licenseType ->

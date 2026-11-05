@@ -9,5 +9,5 @@ data class PracticeQuestionUiModel(
     val question: QuestionEntity,
     val answers: List<AnswerEntity>,
     val images: List<ImageEntity>,
-    val userProgress: UserQuestionProgressEntity?
+    val userQuestionProgress: UserQuestionProgressEntity?
 )

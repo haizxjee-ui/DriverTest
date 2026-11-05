@@ -90,7 +90,7 @@
         tools:layout="@layout/fragment_wrong_question" />
     <fragment
         android:id="@+id/mockExamFragment"
-        android:name="com.example.drivertest.ui.mock_exam.MockExamFragment"
+        android:name="com.example.drivertest.ui.mock_exam.mock_list_exam.MockExamFragment"
         android:label="fragment_mock_exam"
         tools:layout="@layout/fragment_mock_exam" >
         <action
@@ -99,7 +99,7 @@
     </fragment>
     <fragment
         android:id="@+id/mockExamTakingFragment"
-        android:name="com.example.drivertest.ui.mock_exam.MockExamTakingFragment"
+        android:name="com.example.drivertest.ui.mock_exam.mock_taking_exam.MockExamTakingFragment"
         android:label="MockExamTakingFragment"
         tools:layout="@layout/fragment_mock_exam_taking">
         <action
@@ -108,7 +108,7 @@
     </fragment>
     <fragment
         android:id="@+id/examResultFragment"
-        android:name="com.example.drivertest.ui.mock_exam.ExamResultFragment"
+        android:name="com.example.drivertest.ui.mock_exam.exam_result.ExamResultFragment"
         android:label="fragment_exam_result"
         tools:layout="@layout/fragment_exam_result" >
 

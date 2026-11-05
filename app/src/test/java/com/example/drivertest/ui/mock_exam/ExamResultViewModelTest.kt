@@ -3,6 +3,7 @@ package com.example.drivertest.ui.mock_exam
 import com.example.drivertest.data.local.entity.ExamEntity
 import com.example.drivertest.data.model.ExamResultQuestionData
 import com.example.drivertest.data.repository.MockExamRepository
+import com.example.drivertest.ui.mock_exam.exam_result.ExamResultViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

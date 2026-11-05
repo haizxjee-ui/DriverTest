@@ -1,4 +1,4 @@
-package com.example.drivertest.ui.mock_exam
+package com.example.drivertest.ui.mock_exam.mock_list_exam
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,16 +34,14 @@ class MockExamViewModel @Inject constructor(
     private val _uiState =
         MutableStateFlow<MockExamListUiState>(MockExamListUiState.Loading)
 
-    val uiState: StateFlow<MockExamListUiState> =
-        _uiState.asStateFlow()
+    val uiState: StateFlow<MockExamListUiState> = _uiState.asStateFlow()
 
     fun loadExams() {
         viewModelScope.launch {
             _uiState.value = MockExamListUiState.Loading
 
             try {
-                val licenseTypeID =
-                    dataStoreManager.selectedLicenseTypeID.first()
+                val licenseTypeID = dataStoreManager.selectedLicenseTypeID.first()
 
                 if (licenseTypeID == null) {
                     _uiState.value = MockExamListUiState.Error(
@@ -52,8 +50,7 @@ class MockExamViewModel @Inject constructor(
                     return@launch
                 }
 
-                val exams =
-                    mockExamRepository.getOrCreateMockExams(licenseTypeID)
+                val exams = mockExamRepository.getOrCreateMockExams(licenseTypeID)
 
                 _uiState.value = MockExamListUiState.Success(exams)
 

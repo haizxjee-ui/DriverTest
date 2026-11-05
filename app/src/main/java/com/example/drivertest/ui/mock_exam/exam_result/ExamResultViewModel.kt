@@ -1,4 +1,4 @@
-package com.example.drivertest.ui.mock_exam
+package com.example.drivertest.ui.mock_exam.exam_result
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

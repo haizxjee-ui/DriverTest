@@ -1,6 +1,5 @@
 package com.example.drivertest.ui.startup
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drivertest.data.DataStoreManager
@@ -15,6 +14,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class StartupViewModel @Inject constructor(
@@ -40,11 +40,9 @@ class StartupViewModel @Inject constructor(
             databaseSeeder.seed()
 
             // 2. Kiểm tra dữ liệu API đã được khởi tạo chưa
-            val isInitialized =
-                dataStoreManager.isDataInitialized.first()
+            val isInitialized = dataStoreManager.isDataInitialized.first()
 
-            val selectedLicenseID =
-                dataStoreManager.selectedLicenseTypeID.first()
+            val selectedLicenseID = dataStoreManager.selectedLicenseTypeID.first()
 
             // 3. Dữ liệu API đã có
             if (isInitialized) {
@@ -62,9 +60,7 @@ class StartupViewModel @Inject constructor(
 
             // 4. Chưa có dữ liệu API → kiểm tra mạng
             if (!connectivityChecker.isNetworkAvailable()) {
-                _state.value = StartupState.Error(
-                    "Không có kết nối Internet."
-                )
+                _state.value = StartupState.Error
                 return
             }
 
@@ -72,8 +68,7 @@ class StartupViewModel @Inject constructor(
             questionRepository.initializeRemoteData()
 
             // 6. Dữ liệu đã tải xong → kiểm tra lại hạng bằng
-            val newSelectedLicenseID =
-                dataStoreManager.selectedLicenseTypeID.first()
+            val newSelectedLicenseID = dataStoreManager.selectedLicenseTypeID.first()
 
             if (newSelectedLicenseID != null) {
                 _state.value = StartupState.Success
@@ -81,24 +76,20 @@ class StartupViewModel @Inject constructor(
                 _state.value = StartupState.NeedLicenseSelection
             }
 
-        } catch (e: IOException) {
+        } catch (_: IOException) {
 
-            _state.value = StartupState.Error(
-                "Không thể kết nối đến máy chủ."
-            )
+            _state.value = StartupState.Error
 
-        } catch (e: Exception) {
+        } catch (_: Exception) {
 
-            _state.value = StartupState.Error(
-                e.message ?: "Đã xảy ra lỗi khi khởi tạo ứng dụng."
-            )
+            _state.value = StartupState.Error
         }
     }
 
     fun retry() {
         viewModelScope.launch {
             _state.value = StartupState.Loading
-            delay(2000)
+            delay(2000.milliseconds)
             initializeApp()
         }
     }

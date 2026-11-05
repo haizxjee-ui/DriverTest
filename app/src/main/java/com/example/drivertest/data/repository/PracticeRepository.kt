@@ -12,59 +12,34 @@ class PracticeRepository @Inject constructor(
 ) {
 
     fun getAllQuestionTypes(): Flow<List<QuestionTypeEntity>> {
-        return database
-            .questionTypeDao()
-            .getAllQuestionTypes()
+        return database.questionTypeDao().getAllQuestionTypes()
     }
 
-    fun getQuestionCount(
-        questionTypeID: Int
-    ): Flow<Int> {
-        return database
-            .questionDao()
-            .getQuestionCountByType(questionTypeID)
+    fun getQuestionCount(questionTypeID: Int): Flow<Int> {
+        return database.questionDao().getQuestionCountByType(questionTypeID)
     }
 
-    fun getCriticalQuestionCount(
-        questionTypeID: Int
-    ): Flow<Int> {
-        return database
-            .questionDao()
-            .getCriticalQuestionCountByType(questionTypeID)
+    fun getCriticalQuestionCount(questionTypeID: Int): Flow<Int> {
+        return database.questionDao().getCriticalQuestionCountByType(questionTypeID)
     }
 
-    fun getAnsweredQuestionCount(
-        chapterNumber: Int,
-        questionTypeID: Int
-    ): Flow<Int> {
-        return database
-            .userQuestionProgressDao()
-            .getAnsweredQuestionCountByType(
+    fun getAnsweredQuestionCount(chapterNumber: Int, questionTypeID: Int): Flow<Int> {
+        return database.userQuestionProgressDao().getAnsweredQuestionCountByType(
                 chapterNumber,
                 questionTypeID
             )
     }
 
     fun getAnsweredCriticalQuestionCount(): Flow<Int> {
-        return database
-            .userQuestionProgressDao()
-            .getAnsweredCriticalQuestionCount()
+        return database.userQuestionProgressDao().getAnsweredCriticalQuestionCount()
     }
 
-    suspend fun getPracticeProgress(
-        chapterNumber: Int
-    ): PracticeProgressEntity? {
-        return database
-            .practiceProgressDao()
-            .getProgressByChapterNumber(chapterNumber)
+    suspend fun getPracticeProgress(chapterNumber: Int): PracticeProgressEntity? {
+        return database.practiceProgressDao().getProgressByChapterNumber(chapterNumber)
     }
 
-    suspend fun savePracticeProgress(
-        progress: PracticeProgressEntity
-    ) {
-        database
-            .practiceProgressDao()
-            .insertProgress(progress)
+    suspend fun savePracticeProgress(progress: PracticeProgressEntity) {
+        database.practiceProgressDao().insertProgress(progress)
     }
 
     suspend fun getQuestionProgress(
@@ -79,9 +54,7 @@ class PracticeRepository @Inject constructor(
             )
     }
 
-    suspend fun resetChapter(
-        chapterNumber: Int
-    ) {
+    suspend fun resetChapter(chapterNumber: Int) {
 
         database
             .userQuestionProgressDao()

@@ -66,18 +66,18 @@
         android:layout_weight="1">
 
         <!-- Danh sách kết quả (Header + Câu hỏi) -->
+
+        <!-- Lỗi tải dữ liệu -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvResultQuestions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:padding="16dp"
             android:overScrollMode="never"
-            tools:listitem="@layout/item_exam_result_question"
-            xmlns:tools="http://schemas.android.com/tools"
-            tools:ignore="RedundantNamespace" />
+            android:padding="16dp"
+            tools:ignore="RedundantNamespace"
+            tools:listitem="@layout/item_exam_result_question" />
 
-        <!-- Lỗi tải dữ liệu -->
         <TextView
             android:id="@+id/tvError"
             android:layout_width="match_parent"

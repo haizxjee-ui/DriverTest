@@ -1,9 +1,10 @@
-package com.example.drivertest.ui.mock_exam
+package com.example.drivertest.ui.mock_exam.mock_taking_exam
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,6 +19,7 @@ import com.example.drivertest.databinding.FragmentMockExamTakingBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @AndroidEntryPoint
 class MockExamTakingFragment :
@@ -172,10 +174,10 @@ class MockExamTakingFragment :
                     }
 
                     state.saveErrorMessage?.let { message ->
-                        android.widget.Toast.makeText(
+                        Toast.makeText(
                             requireContext(),
                             message,
-                            android.widget.Toast.LENGTH_LONG
+                            Toast.LENGTH_LONG
                         ).show()
 
                         viewModel.clearSaveErrorMessage()
@@ -272,7 +274,7 @@ class MockExamTakingFragment :
         val remainingSeconds = seconds % 60
 
         binding.tvTimer.text = String.format(
-            java.util.Locale.getDefault(),
+            Locale.getDefault(),
             "%02d:%02d",
             minutes,
             remainingSeconds

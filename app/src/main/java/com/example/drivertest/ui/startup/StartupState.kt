@@ -8,5 +8,5 @@ sealed interface StartupState {
 
     data object NeedLicenseSelection : StartupState
 
-    data class Error(val message: String) : StartupState
+    data object Error : StartupState
 }

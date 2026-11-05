@@ -1,4 +1,4 @@
-package com.example.drivertest.ui.mock_exam
+package com.example.drivertest.ui.mock_exam.exam_result
 
 import android.os.Bundle
 import android.view.View

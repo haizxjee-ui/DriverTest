@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PracticeViewModel @Inject constructor(
-    private val repository: PracticeRepository,
+    private val practiceRepository: PracticeRepository,
     private val questionRepository: QuestionRepository
 ) : ViewModel() {
 
@@ -32,7 +32,7 @@ class PracticeViewModel @Inject constructor(
 
             val totalCriticalQuestions = questionRepository.getCriticalQuestionCount().first()
 
-            val questionTypes = repository.getAllQuestionTypes().first()
+            val questionTypes = practiceRepository.getAllQuestionTypes().first()
 
             val chapters =
                 questionTypes.mapIndexed { index, questionType ->
@@ -46,18 +46,18 @@ class PracticeViewModel @Inject constructor(
 
                         } else {
 
-                            repository.getQuestionCount(questionType.questionTypeID).first()
+                            practiceRepository.getQuestionCount(questionType.questionTypeID).first()
 
                         }
 
                     val answeredQuestions =
                         if (chapterNumber == 1) {
 
-                            repository.getAnsweredCriticalQuestionCount().first()
+                            practiceRepository.getAnsweredCriticalQuestionCount().first()
 
                         } else {
 
-                            repository.getAnsweredQuestionCount(
+                            practiceRepository.getAnsweredQuestionCount(
                                 chapterNumber,
                                 questionType.questionTypeID
                             ).first()
@@ -70,7 +70,7 @@ class PracticeViewModel @Inject constructor(
 
                         } else {
 
-                            repository.getCriticalQuestionCount(questionType.questionTypeID).first()
+                            practiceRepository.getCriticalQuestionCount(questionType.questionTypeID).first()
 
                         }
 
@@ -98,11 +98,9 @@ class PracticeViewModel @Inject constructor(
         }
     }
 
-    fun resetChapter(
-        chapterNumber: Int
-    ) {
+    fun resetChapter(chapterNumber: Int) {
         viewModelScope.launch {
-            repository.resetChapter(chapterNumber)
+            practiceRepository.resetChapter(chapterNumber)
             refreshChapters()
         }
     }

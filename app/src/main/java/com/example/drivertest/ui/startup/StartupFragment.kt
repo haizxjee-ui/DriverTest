@@ -59,8 +59,7 @@ class StartupFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
 
-            val selectedLicenseID =
-                dataStoreManager.selectedLicenseTypeID.first()
+            val selectedLicenseID = dataStoreManager.selectedLicenseTypeID.first()
 
             if (selectedLicenseID == null) {
 
@@ -140,7 +139,6 @@ class StartupFragment : Fragment() {
                             binding.btnRetry.visibility = View.VISIBLE
                             binding.btnRetry.isEnabled = true
 
-                            binding.tvErrorMessage.text = state.message
                         }
 
                         StartupState.Success -> {

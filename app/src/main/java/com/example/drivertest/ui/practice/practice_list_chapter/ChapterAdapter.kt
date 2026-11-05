@@ -1,5 +1,6 @@
 package com.example.drivertest.ui.practice.practice_list_chapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ class ChapterAdapter(
 
     private val chapters = mutableListOf<ChapterUiModel>()
 
-
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(newList: List<ChapterUiModel>) {
 
         // Bỏ chương 9 - bộ đề thi thử lý thuyết
@@ -55,38 +56,31 @@ class ChapterAdapter(
     inner class ChapterViewHolder(
         private val binding: ItemChapterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n", "UseKtx")
         fun bind(chapter: ChapterUiModel) {
 
-            binding.tvChapterTag.text =
-                "Chương ${chapter.chapterNumber}"
+            binding.tvChapterTag.text = "Chương ${chapter.chapterNumber}"
 
-            binding.tvChapterTitle.text =
-                chapter.title
+            binding.tvChapterTitle.text = chapter.title
 
             binding.tvProgressCount.text =
                 "Tiến độ: ${chapter.answeredQuestions}/${chapter.totalQuestions} câu"
 
-            binding.tvProgressPercent.text =
-                "${chapter.progressPercent}%"
+            binding.tvProgressPercent.text = "${chapter.progressPercent}%"
 
-            binding.progressBar.progress =
-                chapter.progressPercent
+            binding.progressBar.progress = chapter.progressPercent
 
-            binding.tvTotalQuestions.text =
-                "${chapter.totalQuestions} câu hỏi"
+            binding.tvTotalQuestions.text = "${chapter.totalQuestions} câu hỏi"
 
             if (chapter.criticalQuestionCount > 0) {
 
-                binding.tvWarningTag.visibility =
-                    View.VISIBLE
+                binding.tvWarningTag.visibility = View.VISIBLE
 
-                binding.tvWarningTag.text =
-                    "${chapter.criticalQuestionCount} câu điểm liệt"
+                binding.tvWarningTag.text = "${chapter.criticalQuestionCount} câu điểm liệt"
 
             } else {
 
-                binding.tvWarningTag.visibility =
-                    View.GONE
+                binding.tvWarningTag.visibility = View.GONE
             }
 
             when {

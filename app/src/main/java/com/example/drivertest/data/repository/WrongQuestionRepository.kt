@@ -24,16 +24,6 @@ class WrongQuestionRepository @Inject constructor(
         )
     }
 
-    // Kiểm tra câu hỏi có trong danh sách câu sai không
-    suspend fun isWrongQuestion(questionID: Int): Boolean {
-        return wrongQuestionDao.isWrongQuestion(questionID)
-    }
-
-    // Xóa một câu hỏi sai
-    suspend fun removeWrongQuestion(questionID: Int) {
-        wrongQuestionDao.deleteWrongQuestion(questionID)
-    }
-
     // Xóa các câu đã làm lại trong phiên hiện tại
     suspend fun removeWrongQuestions(questionIDs: List<Int>) {
         if (questionIDs.isNotEmpty()) {
